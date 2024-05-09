@@ -32,6 +32,16 @@ namespace PollsApp.Api
             builder.Services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<DbContextSqlite>().AddDefaultTokenProviders();
 
+            builder.Services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 5;
+                options.Password.RequiredUniqueChars = 1;
+            });
+
             builder.Services.AddTransient<IAuthService, AuthService>();
             builder.Services.AddTransient<IUserService, UserService>();
             builder.Services.AddTransient<IPollsRepository, PollsRepository>();

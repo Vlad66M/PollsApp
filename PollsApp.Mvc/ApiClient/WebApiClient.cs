@@ -12,7 +12,6 @@ namespace PollsApp.Mvc.ApiClient
 {
     public class WebApiClient : IWebApiClient
     {
-        //HttpClient httpClient = new HttpClient();
 
         private readonly ILocalStorageService _localStorageService;
 
@@ -22,7 +21,7 @@ namespace PollsApp.Mvc.ApiClient
         }
         public WebApiClient()
         {
-            //httpClient.BaseAddress = new Uri("https://localhost:7222/");
+            
         }
 
         private HttpClient GetHttpClient()
@@ -64,17 +63,12 @@ namespace PollsApp.Mvc.ApiClient
         {
             PagedListModel polls = new PagedListModel();
             List<Poll> polls1 = new List<Poll>();
-            /*PList plist = new();*/
             bool res = false;
             string path = $"/api/polls?userId={userId}&search={search}&active={active}&notvoted={notvoted}&page={page}";
             HttpResponseMessage response = await GetHttpClient().GetAsync(path);
             if (response.IsSuccessStatusCode)
             {
-
-                //polls = await response.Content.ReadAsAsync<PagedListModel>();
                 var resStr = await response.Content.ReadAsStringAsync();
-                //Console.WriteLine("res string: " + resStr);
-                /*plist = await response.Content.ReadAsAsync<PList>();*/
                 polls = await Task.Run(() => JsonConvert.DeserializeObject<PagedListModel>(resStr));
             }
             return polls;

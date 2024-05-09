@@ -41,8 +41,8 @@
             }
             else
             {
-                green = ((double)option.Votes / (double)Model.PollInfo.Votes) * length;
-                white = length - green;
+                green = Math.Round(((double)option.Votes / (double)Model.PollInfo.Votes) * length, 0);
+                white = Math.Round((length - green), 0);
             }
             Console.WriteLine("users count:" + @option.Users.Count);
 

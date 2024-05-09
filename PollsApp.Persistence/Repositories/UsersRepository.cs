@@ -21,12 +21,12 @@ namespace PollsApp.Persistence.Repositories
 
         public User GetUser(string email, string password)
         {
-            using (DbContextSqlite db = new DbContextSqlite())
+            /*using (DbContextSqlite db = new DbContextSqlite())
             {
                 var user = db.Users.Where(u => u.Email == email && u.Password == password).Include(u => u.Role).Include(u => u.Votes).FirstOrDefault();
                 return user;
-            }
-
+            }*/
+            throw new NotImplementedException();
         }
 
         public User GetUser(string id)

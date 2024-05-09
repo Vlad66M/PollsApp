@@ -37,34 +37,34 @@ namespace PollsApp.Mvc.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = new User();
+                /*User user = new User();
                 user.Email = model.Email;
-                user.Name = model.Name;
-                user.Password = model.Password;
+                user.Name = model.Name;*/
+                //user.Password = model.Password;
                 if (model.CroppedAvatarBase64String != null)
                 {
                     try
                     {
                         byte[] avatarBytes = Convert.FromBase64String(model.CroppedAvatarBase64String);
-                        user.Avatar = avatarBytes;
+                        model.Avatar = avatarBytes;
                     }
                     catch { }
                 }
-                user.Role = new Role() { Name = "user" };
-                user.Votes = null;
+                /*user.Role = new Role() { Name = "user" };
+                user.Votes = null;*/
 
-                PostUserModel postModel = new();
+                /*PostUserModel postModel = new();
                 postModel.Name = user.Name;
                 postModel.Email = user.Email;
-                postModel.Password = user.Password;
-                postModel.Avatar = user.Avatar;
+                //postModel.Password = user.Password;
+                postModel.Avatar = user.Avatar;*/
 
                 RegistrationRequest register = new()
                 {
-                    Name = user.Name,
-                    Email = user.Email,
-                    Password = user.Password,
-                    Avatar = user.Avatar
+                    Name = model.Name,
+                    Email = model.Email,
+                    Password = model.Password,
+                    Avatar = model.Avatar
                 };
                 var result = await _authService.Register(register);
 

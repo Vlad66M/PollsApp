@@ -76,11 +76,12 @@ namespace PollsApp.Identity
 
                 Name = request.Name,
                 RoleId = 1,
-                Password = request.Password,
+                //Password = request.Password,
                 Avatar = request.Avatar
 
             };
 
+            
             var result = await _userManager.CreateAsync(user, request.Password);
 
             if (result.Succeeded)
