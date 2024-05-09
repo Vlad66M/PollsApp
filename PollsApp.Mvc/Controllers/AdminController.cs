@@ -22,7 +22,7 @@ namespace PollsApp.Mvc.Controllers
             Console.WriteLine("Index");
             string userIdString = HttpContext.User.FindFirst("UserId").Value.ToString();
 
-            User user = await webApiClient.GetUserAsync("api/users/" + userIdString);
+            UserDto user = await webApiClient.GetUserDtoAsync("api/users/" + userIdString);
             var polls = await webApiClient.GetPollsAsync(userIdString, search, active, notvoted, page);
 
             if (user != null)

@@ -11,6 +11,7 @@ namespace PollsApp.Mvc.ApiClient
         Task<PollInfo> GetPollInfoAsync(long pollId, string userId);
         Task<PagedListModel> GetPollsAsync(string? userId, string? search, bool? active, bool? notvoted, int? page);
         Task<User> GetUserAsync(string path);
+        Task<UserDto> GetUserDtoAsync(string path);
         Task<AuthResponse> LoginAsync(AuthRequest request);
         Task<bool> PostCommentAsync(PostCommentModel comment);
         Task<bool> PostPollAsync(PostPollModel model);

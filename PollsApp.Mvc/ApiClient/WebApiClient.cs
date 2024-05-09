@@ -48,6 +48,17 @@ namespace PollsApp.Mvc.ApiClient
             return user;
         }
 
+        public async Task<UserDto> GetUserDtoAsync(string path)
+        {
+            UserDto user = null;
+            HttpResponseMessage response = await GetHttpClient().GetAsync(path);
+            if (response.IsSuccessStatusCode)
+            {
+                user = await response.Content.ReadAsAsync<UserDto>();
+            }
+            return user;
+        }
+
         public async Task<User> PutUserAsync(EditUserModel model)
         {
             HttpResponseMessage response = await GetHttpClient().PutAsJsonAsync($"api/users", model);
@@ -157,5 +168,7 @@ namespace PollsApp.Mvc.ApiClient
             }
             return res;
         }
+
+        
     }
 }

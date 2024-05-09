@@ -9,7 +9,7 @@ namespace PollsApp.Application.DTOs
 {
     public class PollsViewModel
     {
-        public User User { get; set; }
+        public UserDto User { get; set; }
         public PagedList<Poll> Polls { get; set; } = new();
 
         public PagedListModel PagedListModel { get; set; }

@@ -1,4 +1,5 @@
-﻿using PollsApp.Domain;
+﻿using PollsApp.Application.DTOs;
+using PollsApp.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,14 +10,14 @@ namespace PollsApp.Application.Persistence
 {
     public interface IUsersRepository
     {
-        public User GetUserByEmailAndPassword(string email, string password);
+        //public User GetUserByEmailAndPassword(string email, string password);
 
-        public User GetUserById(string id);
+        public UserDto GetUserById(string id);
 
         public User PutUser(User user);
 
-        public bool isEmailRegistered(string email);
+        //public bool isEmailRegistered(string email);
 
-        public Role GetRoles(string roleName);
+        //public Role GetRoles(string roleName);
     }
 }
