@@ -1,0 +1,19 @@
+﻿@using PollsApp.Application.DTOs
+
+@model PollsViewModel
+
+<div class="comments-container" id="comments-container">
+
+    <partial name="_CommentsInput" />
+
+    <div class="comments-list" id="comments-list">
+        @foreach (var comment in Model.PollInfo.Poll.Comments)
+        {
+            <div class="comment">
+                <p>@comment.Text</p>
+            </div>
+
+        }
+    </div>
+    
+</div>

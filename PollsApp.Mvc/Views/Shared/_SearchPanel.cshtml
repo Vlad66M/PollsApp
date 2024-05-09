@@ -1,0 +1,20 @@
+﻿@using PollsApp.Application.DTOs
+
+@model PollsViewModel
+
+<form method="get" id="search-form">
+    <div>
+        <label for="search">Поиск</label>
+        <input type="text" name="search" id="search" autocomplete="off" @(!String.IsNullOrEmpty(Model.SearchInfo.Search) ? "value=" + Model.SearchInfo.Search : "") />
+        <div id="autocomplete" class="autocomplete"></div>
+    </div>
+    <div>
+        <label for="active">Только активные</label>
+        <input type="checkbox" name="active" id="active" value="true" @((Model.SearchInfo.Active != null && Model.SearchInfo.Active == true) ? "checked" : "") />
+    </div>
+    <div>
+        <label for="active">В которых не голосовал</label>
+        <input type="checkbox" name="notvoted" id="notvoted" value="true" @((Model.SearchInfo.NotVoted != null && Model.SearchInfo.NotVoted == true) ? "checked" : "") />
+    </div>
+    
+</form>

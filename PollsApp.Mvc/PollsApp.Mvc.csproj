@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="LocalStorage" Version="2.1.0" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="6.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.4" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PollsApp.Application\PollsApp.Application.csproj" />
+    <ProjectReference Include="..\PollsApp.Domain\PollsApp.Domain.csproj" />
+    <ProjectReference Include="..\PollsApp.Identity\PollsApp.Identity.csproj" />
+    <ProjectReference Include="..\PollsApp.Persistence\PollsApp.Persistence.csproj" />
+  </ItemGroup>
+
+</Project>

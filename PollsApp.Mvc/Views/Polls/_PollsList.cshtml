@@ -1,0 +1,19 @@
+﻿@using PollsApp.Application.DTOs
+@using PollsApp.Domain
+
+
+@model PollsViewModel
+
+<div id="polls-container">
+    @foreach (Poll poll in Model.PagedListModel.polls)
+    {
+        <a href="~/polls/@poll.Id"><h3>@poll.Title</h3></a>
+    }
+    <div>
+        @if (Model.PagedListModel.hasPrevious || Model.PagedListModel.hasNext)
+        {
+            <button id="btn-prev" @(Model.PagedListModel.hasPrevious ? "" : "disabled")>Назад</button>
+            <button id="btn-next" @(Model.PagedListModel.hasNext ? "" : "disabled")>Вперед</button>
+        }
+    </div>
+</div>

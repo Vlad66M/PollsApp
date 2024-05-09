@@ -1,0 +1,60 @@
+﻿@using PollsApp.Application.DTOs
+
+@model CreatePollViewModel
+
+<form method="post" asp-action="Edit" asp-controller="Polls" asp-antiforgery="true">
+    <div class="validation" asp-validation-summary="ModelOnly">  </div>
+    <div>
+        <div class="form-group-create-poll">
+            <label for="Title"> Заголовок опроса </label>
+            <input type="text" name="Title" value="@Model.Title" />
+            <span asp-validation-for="Title" />
+        </div>
+
+        <div class="form-group-create-poll">
+            <label for="AllowComments">Разрешить комментарии</label>
+            <input type="checkbox" name="AllowComments" value="true" @(Model.AllowComments ? "checked" : "")/>
+        </div>
+
+        <div id="datepicker-container" class="form-group-create-poll">
+            <label for="HasEndDate">Добавить дату зварешнеия</label>
+            <input id="ckbx-has-end-date" type="checkbox" name="HasEndDate" value="false" @(Model.HasEndDate ? "checked" : "") />
+            <br />
+            <input asp-for="EndDate" name="EndDate" id="datepicker" class="@(Model.HasEndDate ? "datepicker-visible" : "datepicker-hidden")" value="@Model.EndDate?.ToString("yyyy-MM-ddThh:mm")" />
+        </div>
+
+        <div class="add-option-div" id="add-option">Добавить опцию</div>
+        <div id="options-container">
+            @foreach(var option in Model.Options)
+            {
+                <div class="option-item-create">
+                    <input type="text" name="options" class="poll-option-input" value="@option" />
+                    <div class="remove-option" onclick="return this.parentNode.remove();">&#10060;</div>
+                </div>
+            }
+        </div>
+
+        <div class="form-group-create-poll">
+
+            <input type="submit" value="Сохранить" class="btn btn-outline-dark" />
+
+        </div>
+    </div>
+
+</form>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+@* <script>
+    try {
+        $(function () {
+            $("#datepicker").datepicker();
+        });
+    }
+    catch (e) { }
+    
+</script> *@
+
+<script src="~/js/create_poll.js"></script>

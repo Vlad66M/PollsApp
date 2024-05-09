@@ -1,0 +1,96 @@
+﻿@using PollsApp.Application.DTOs
+
+@model PollsViewModel
+@{
+    double length = 200;
+    double green;
+    double white;
+
+    string disabled = "";
+}
+
+
+
+<partial name="_UserPanel" />
+<form method="post" class="poll-container" id="poll-container-id">
+    <h3>@Model.PollInfo.Poll.Title</h3>
+    @if (Model.PollInfo.Poll.EndDate != null && Model.PollInfo.Poll.IsActive)
+    {
+        if (Model.PollInfo.Poll.EndDate > DateTime.Now)
+        {
+            <p>опрос завершится @Model.PollInfo.Poll.EndDate?.ToString("G")</p>
+        }
+        else
+        {
+            <p>опрос завершен</p>
+            disabled = "disabled";
+        }
+    }
+    @if (!Model.PollInfo.Poll.IsActive)
+    {
+        <p>опрос завершен</p>
+        disabled = "disabled";
+    }
+    <div class="options">
+        @foreach (OptionInfo option in Model.PollInfo.Options)
+        {
+            if(Model.PollInfo.Votes == 0)
+            {
+                green = 0;
+                white = length;
+            }
+            else
+            {
+                green = ((double)option.Votes / (double)Model.PollInfo.Votes) * length;
+                white = length - green;
+            }
+            Console.WriteLine("users count:" + @option.Users.Count);
+
+            <div class="option-item">
+                <label class="option-label" for="@option.PollOption.Id">
+                    <div class="option-text-container">
+                        @option.PollOption.Text
+                    </div>
+                    <div class="lines-container">
+                        <div id="green-@option.PollOption.Id" class="green-line" style="width: @(green)px"></div>
+                        <div id="white-@option.PollOption.Id" class="white-line" style="width: @(white)px"></div>
+                    </div>
+                    <input type="radio" name="optionId" value="@option.PollOption.Id" @(option.IsChecked ? "checked" : "") @disabled @(Model.PollInfo.IsVoted ? "disabled" : "") />
+                    <p class="votes-number">@option.Votes</p>
+                    <div class="peek" id="show-voted-@option.PollOption.Id" onmouseover="showVoted(@option.PollOption.Id, 1)" onmouseleave="hideVoted(@option.PollOption.Id)">&#128065;</div>
+
+                    <div class="hidden" id="voted-users-@option.PollOption.Id">
+                        @foreach(var u in option.Users)
+                        {
+                            string imgSrc = "https://secure.gravatar.com/avatar/82ac62bd494834f0fc4f1c338131460d?s=520&d=mm&r=g";
+                            if (u.UserAvatar != null)
+                            {
+                                imgSrc = "data:image/jpeg;base64," + Convert.ToBase64String(@u.UserAvatar);
+                            }
+                            <div class="voted-item">
+                                <img class="voted-avatar" src="@imgSrc" alt="img" />
+                                <div>@u.UserName</div>
+                            </div>
+                        }
+                    </div>
+
+                    </label>
+                    <br/>
+            </div>
+        }
+    </div>
+    <div>
+        <label for="isAnon">Проголосовать анонимно</label>
+        <input type="checkbox" name="isAnon" id="isAnon" value="true" @(Model.PollInfo.IsVoted ? "disabled" : "") @(Model.PollInfo.IsAnon ? "checked" : "") @disabled/>
+    </div>
+    
+    <button type="submit" @(Model.PollInfo.IsVoted ? "disabled" : "") @disabled>Проголосовать</button>
+</form>
+
+<partial name="_Comments" />
+
+<input type="text" hidden value="@Model.PollInfo.Poll.Id" id="current-poll-id"/>
+
+<script src="~/js/poll.js"></script>
+<script src="~/js/signalr/dist/browser/signalr.js" charset="utf-8"></script>
+<script src="~/js/comments.js"></script>

@@ -1,0 +1,69 @@
+﻿@using PollsApp.Application.DTOs
+@using PollsApp.Domain
+
+
+@model PollsViewModel
+
+<div id="polls-container">
+
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Заголовок</th>
+      <th scope="col">Дата создания</th>
+      <th scope="col">Дата завершения</th>
+      <th scope="col">Статус</th>
+      <th scope="col">Завершить</th>
+      <th scope="col">Изменить</th>
+      <th scope="col">Удалить</th>
+    </tr>
+  </thead>
+  <tbody>
+            @foreach (Poll poll in Model.PagedListModel.polls)
+            {
+                <tr>
+                    <td>@poll.Id</td>
+                    <td><a href="~/polls/@poll.Id"><h3>@poll.Title</h3></a></td>
+                    <td>@poll.StartDate</td>
+                    <td>@poll.EndDate</td>
+                    <td>@(poll.IsActive == true ? "активный" : "завершенный")</td>
+                    <td>
+                        @if (poll.IsActive)
+                        {
+                            <form method="post" asp-action="Finish" asp-controller="Admin">
+                                <input type="text" name="id" hidden value="@poll.Id" />
+                                <button class="btn-light" type="submit">Завершить</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <form method="post" asp-action="Restart" asp-controller="Admin">
+                                <input type="text" name="id" hidden value="@poll.Id" />
+                                <button class="btn-light" type="submit">Возобновить</button>
+                            </form>
+                        }
+                    </td>
+                    <td>
+                        <a href="~/admin/edit/@poll.Id">
+                            <button class="btn-light" type="button">Изменить</button>
+                        </a>
+                    </td>
+                    <td>
+                        <form method="post" asp-action="Delete" asp-controller="Admin">
+                            <input type="text" name="id" hidden value="@poll.Id" />
+                            <button class="btn-danger delete-btn" type="submit" >Удалить</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+  </tbody>
+</table>
+<div>
+        @if (Model.PagedListModel.hasPrevious || Model.PagedListModel.hasNext)
+        {
+            <button id="btn-prev" @(Model.PagedListModel.hasPrevious ? "" : "disabled")>Назад</button>
+            <button id="btn-next" @(Model.PagedListModel.hasNext ? "" : "disabled")>Вперед</button>
+        }
+</div>
+</div>
