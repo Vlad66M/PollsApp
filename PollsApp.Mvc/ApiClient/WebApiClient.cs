@@ -48,10 +48,10 @@ namespace PollsApp.Mvc.ApiClient
             return user;
         }
 
-        public async Task<UserDto> GetUserDtoAsync(string path)
+        public async Task<UserDto> GetUserDtoAsync(string id)
         {
             UserDto user = null;
-            HttpResponseMessage response = await GetHttpClient().GetAsync(path);
+            HttpResponseMessage response = await GetHttpClient().GetAsync("api/users/" + id);
             if (response.IsSuccessStatusCode)
             {
                 user = await response.Content.ReadAsAsync<UserDto>();

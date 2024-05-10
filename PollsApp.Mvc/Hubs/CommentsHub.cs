@@ -2,6 +2,7 @@
 using PollsApp.Application.DTOs;
 using PollsApp.Domain;
 using PollsApp.Mvc.ApiClient;
+using PollsApp.Mvc.ViewModels;
 
 namespace PollsApp.Mvc.Hubs
 {
@@ -19,20 +20,22 @@ namespace PollsApp.Mvc.Hubs
             long pollId;
             try
             {
-                string userIdString = Context.User.FindFirst("UserId").Value.ToString();
-                string userId = userIdString;
+                string userId = Context.User.FindFirst("UserId").Value.ToString();
+                var user = await webApiClient.GetUserDtoAsync(userId);
                 pollId = long.Parse(pollIdString);
-                //WebApiClient webApiClient = new WebApiClient();
-                Comment comment = new Comment();
-                comment.PollId = pollId;
-                comment.UserId = userId;
-                comment.Text = text;
-                comment.User = new User();
+                
+                CommentVM commentVm = new()
+                {
+                    PollId = pollIdString,
+                    UserName = user.Name,
+                    UserAvatar = user.Avatar,
+                    Text = text
+                };
 
                 PostCommentModel model = new PostCommentModel() { Text = text, PollId = pollId, UserId = userId };
                 await webApiClient.PostCommentAsync(model);
 
-                await Clients.Others.SendAsync("ReceiveComment", comment);
+                await Clients.All.SendAsync("ReceiveComment", commentVm);
             }
             catch (Exception ex) { }
 

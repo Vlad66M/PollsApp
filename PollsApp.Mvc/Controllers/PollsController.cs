@@ -30,7 +30,7 @@ namespace PollsApp.Mvc.Controllers
             //string userIdString = HttpContext.User.FindFirst("UserId").Value.ToString();
             /*long userId = long.Parse(userIdString);*/
 
-            UserDto user = await webApiClient.GetUserDtoAsync("api/users/" + userIdString);
+            UserDto user = await webApiClient.GetUserDtoAsync(userIdString);
 
             //Console.WriteLine(user.Role.Name);
 
@@ -63,7 +63,7 @@ namespace PollsApp.Mvc.Controllers
             var pollInfo = await webApiClient.GetPollInfoAsync(id, userIdString);
             if (pollInfo != null)
             {
-                UserDto user = await webApiClient.GetUserDtoAsync("api/users/" + userIdString);
+                UserDto user = await webApiClient.GetUserDtoAsync(userIdString);
                 if (user != null)
                 {
                     PollsViewModel model = new();

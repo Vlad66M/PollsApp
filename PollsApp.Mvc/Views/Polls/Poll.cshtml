@@ -13,6 +13,9 @@
 
 
 <partial name="_UserPanel" />
+
+<input id="poll-id-current" type="text" hidden value="@Model.PollInfo.Poll.Id" />
+
 <form method="post" class="poll-container" id="poll-container-id">
     <h3>@Model.PollInfo.Poll.Title</h3>
     @if (Model.PollInfo.Poll.EndDate != null && Model.PollInfo.Poll.IsActive)
