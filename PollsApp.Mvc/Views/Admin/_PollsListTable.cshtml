@@ -1,5 +1,6 @@
-﻿@using PollsApp.Application.DTOs
+﻿
 @using PollsApp.Domain
+@using PollsApp.Mvc.ViewModels
 
 
 @model PollsViewModel
@@ -20,7 +21,7 @@
     </tr>
   </thead>
   <tbody>
-            @foreach (Poll poll in Model.PagedListModel.polls)
+            @foreach (var poll in Model.PagedListModel.polls)
             {
                 <tr>
                     <td>@poll.Id</td>

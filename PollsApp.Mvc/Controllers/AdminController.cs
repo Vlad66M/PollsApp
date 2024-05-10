@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PollsApp.Application.DTOs;
 using PollsApp.Domain;
 using PollsApp.Mvc.ApiClient;
+using PollsApp.Mvc.ViewModels;
 
 namespace PollsApp.Mvc.Controllers
 {

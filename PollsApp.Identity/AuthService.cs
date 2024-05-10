@@ -70,7 +70,7 @@ namespace PollsApp.Identity
             {
                 Email = request.Email,
 
-                UserName = request.Name,
+                UserName = request.Email,
 
                 EmailConfirmed = true,
 

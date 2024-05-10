@@ -85,14 +85,14 @@ namespace PollsApp.Mvc.ApiClient
             return polls;
         }
 
-        public async Task<PollInfo> GetPollInfoAsync(long pollId, string userId)
+        public async Task<Application.DTOs.PollDetailsDto> GetPollInfoAsync(long pollId, string userId)
         {
-            PollInfo pollInfo = null;
+            Application.DTOs.PollDetailsDto pollInfo = null;
             string path = $"/api/polls/{pollId}?userId={userId}";
             HttpResponseMessage response = await GetHttpClient().GetAsync(path);
             if (response.IsSuccessStatusCode)
             {
-                pollInfo = await response.Content.ReadAsAsync<PollInfo>();
+                pollInfo = await response.Content.ReadAsAsync<Application.DTOs.PollDetailsDto>();
             }
             return pollInfo;
         }

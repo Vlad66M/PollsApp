@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PollsApp.Application.DTOs;
@@ -14,27 +15,15 @@ namespace PollsApp.Api.Controllers
     {
         private readonly IUsersRepository usersRepository;
         private readonly IPollsRepository pollsRepository;
+        private readonly IMapper mapper;
 
-        public UsersController(IUsersRepository usersRepository, IPollsRepository pollsRepository)
+        public UsersController(IUsersRepository usersRepository, IPollsRepository pollsRepository, IMapper mapper)
         {
             this.usersRepository = usersRepository;
             this.pollsRepository = pollsRepository;
+            this.mapper = mapper;
         }
-        // GET: api/Users
-        /*[HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers(string email, string password)
-        {
-            var user = usersRepository.GetUserByEmailAndPassword(email, password);
-            if (user != null)
-            {
-                return Ok(user);
-            }
-            else
-            {
-                return NotFound();
-            }
-            //return new JsonResult(user);
-        }*/
+        
 
         [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<User>>> GetUser(string id)
@@ -42,7 +31,8 @@ namespace PollsApp.Api.Controllers
             var user = usersRepository.GetUserById(id);
             if (user != null)
             {
-                return Ok(user);
+                UserDto userDto = mapper.Map<UserDto>(user);
+                return Ok(userDto);
             }
             else
             {

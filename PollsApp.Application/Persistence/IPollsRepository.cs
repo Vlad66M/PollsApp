@@ -13,7 +13,7 @@ namespace PollsApp.Application.Persistence
     {
         public PagedList<Poll> GetPolls(string? userId, string? search, bool? active, bool? notvoted, int page = 1);
 
-        public PollInfo GetPoll(long pollId, string userId);
+        public DTOs.PollDetails GetPoll(long pollId, string userId);
 
         public void PostPoll(Poll poll);
 

@@ -1,4 +1,5 @@
-﻿@using PollsApp.Application.DTOs
+﻿
+@using PollsApp.Mvc.ViewModels
 
 @model PollsViewModel
 @{
@@ -32,7 +33,7 @@
         disabled = "disabled";
     }
     <div class="options">
-        @foreach (OptionInfo option in Model.PollInfo.Options)
+        @foreach (var option in Model.PollInfo.Options)
         {
             if(Model.PollInfo.Votes == 0)
             {
@@ -63,13 +64,13 @@
                         @foreach(var u in option.Users)
                         {
                             string imgSrc = "https://secure.gravatar.com/avatar/82ac62bd494834f0fc4f1c338131460d?s=520&d=mm&r=g";
-                            if (u.UserAvatar != null)
+                            if (u.Avatar != null)
                             {
-                                imgSrc = "data:image/jpeg;base64," + Convert.ToBase64String(@u.UserAvatar);
+                                imgSrc = "data:image/jpeg;base64," + Convert.ToBase64String(@u.Avatar);
                             }
                             <div class="voted-item">
                                 <img class="voted-avatar" src="@imgSrc" alt="img" />
-                                <div>@u.UserName</div>
+                                <div>@u.Name</div>
                             </div>
                         }
                     </div>

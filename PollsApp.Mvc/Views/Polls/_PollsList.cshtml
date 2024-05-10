@@ -1,11 +1,11 @@
-﻿@using PollsApp.Application.DTOs
-@using PollsApp.Domain
+﻿
+@using PollsApp.Mvc.ViewModels
 
 
 @model PollsViewModel
 
 <div id="polls-container">
-    @foreach (Poll poll in Model.PagedListModel.polls)
+    @foreach (var poll in Model.PagedListModel.polls)
     {
         <a href="~/polls/@poll.Id"><h3>@poll.Title</h3></a>
     }

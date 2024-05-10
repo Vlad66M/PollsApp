@@ -10,14 +10,9 @@ namespace PollsApp.Application.Persistence
 {
     public interface IUsersRepository
     {
-        //public User GetUserByEmailAndPassword(string email, string password);
-
-        public UserDto GetUserById(string id);
+        public User GetUserById(string id);
 
         public User PutUser(User user);
 
-        //public bool isEmailRegistered(string email);
-
-        //public Role GetRoles(string roleName);
     }
 }

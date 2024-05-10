@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PollsApp.Application.DTOs;
 using PollsApp.Domain;
 using PollsApp.Mvc.ApiClient;
+using PollsApp.Mvc.ViewModels;
 
 namespace PollsApp.Mvc.Controllers
 {
@@ -31,7 +32,7 @@ namespace PollsApp.Mvc.Controllers
 
             UserDto user = await webApiClient.GetUserDtoAsync("api/users/" + userIdString);
 
-            Console.WriteLine(user.Role.Name);
+            //Console.WriteLine(user.Role.Name);
 
             var polls = await webApiClient.GetPollsAsync(userIdString, search, active, notvoted, page);
 

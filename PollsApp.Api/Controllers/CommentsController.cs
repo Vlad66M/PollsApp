@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PollsApp.Application.DTOs;
@@ -15,12 +16,15 @@ namespace PollsApp.Api.Controllers
 
         private IPollsRepository pollsRepository;
         private IUsersRepository usersRepository;
+        private readonly IMapper mapper;
 
         public CommentsController(IPollsRepository pollsRepository,
-                               IUsersRepository usersRepository)
+                               IUsersRepository usersRepository,
+                               IMapper mapper)
         {
             this.pollsRepository = pollsRepository;
             this.usersRepository = usersRepository;
+            this.mapper = mapper;
         }
 
         [HttpPost]

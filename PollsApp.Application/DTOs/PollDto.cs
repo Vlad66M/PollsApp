@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PollsApp.Domain;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace PollsApp.Application.DTOs
 {
     public class PollDto
     {
+
         
         public long Id { get; set; }
 

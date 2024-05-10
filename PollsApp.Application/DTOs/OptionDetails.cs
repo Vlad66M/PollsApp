@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace PollsApp.Application.DTOs
 {
-    public class OptionInfo
+    public class OptionDetails
     {
         public PollOption PollOption { get; set; }
         public int Votes { get; set; }
-        public List<UserInfo> Users { get; set; } = new();
+        public List<User> Users { get; set; } = new();
         public bool IsChecked { get; set; }
     }
 }

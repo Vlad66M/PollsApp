@@ -1,11 +1,8 @@
-﻿using PollsApp.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PollsApp.Application.DTOs;
+using PollsApp.Application;
+using PollsApp.Domain;
 
-namespace PollsApp.Application.DTOs
+namespace PollsApp.Mvc.ViewModels
 {
     public class PollsViewModel
     {
@@ -13,7 +10,7 @@ namespace PollsApp.Application.DTOs
         public PagedList<Poll> Polls { get; set; } = new();
 
         public PagedListModel PagedListModel { get; set; }
-        public PollInfo PollInfo { get; set; }
+        public PollDetailsDto PollInfo { get; set; }
 
         public SearchInfo SearchInfo { get; set; }
         public int? Page { get; set; }

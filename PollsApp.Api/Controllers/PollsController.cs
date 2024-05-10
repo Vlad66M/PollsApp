@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -16,17 +17,20 @@ namespace PollsApp.Api.Controllers
     [Authorize(Roles = "admin, user")]
     public class PollsController : Controller
     {
+        private readonly IMapper mapper;
         private IPollsRepository pollsRepository { get; }
         private IUsersRepository usersRepository { get; }
         private IUserService userService { get; }
 
         public PollsController(IPollsRepository pollsRepository, 
                                IUsersRepository usersRepository, 
-                               IUserService userService)
+                               IUserService userService,
+                               IMapper mapper)
         {
             this.pollsRepository = pollsRepository;
             this.usersRepository = usersRepository;
             this.userService = userService;
+            this.mapper = mapper;
         }
 
         [HttpGet]
@@ -36,13 +40,18 @@ namespace PollsApp.Api.Controllers
             int pageNumber = page ?? 1;
             var polls = pollsRepository.GetPolls(userId, search, active, notvoted, pageNumber);
             PagedListModel pagedListModel = new PagedListModel();
-            //pagedListModel.polls = polls;
+
+            List<PollDto> pollsDtos = new List<PollDto>();
+            foreach(Poll pollDto in polls.data)
+            {
+                var pDto = mapper.Map<PollDto>(pollDto);
+                pollsDtos.Add(pDto);
+            }
+            
             pagedListModel.hasNext = polls.hasNext;
             pagedListModel.hasPrevious = polls.hasPrevious;
-            pagedListModel.polls = polls.data;
+            pagedListModel.polls = pollsDtos;
 
-            /*PList plist = new PList();
-            plist.polls = polls.data;*/
 
             string res = "";
             try
@@ -57,20 +66,18 @@ new JsonSerializerSettings
             {
 
             }
-            /*foreach (var pol in polls)
-            {
-                pagedListModel.polls.Add(pol);
-            }*/
 
             return Ok(res);
-            //return new JsonResult(user);
         }
 
         [HttpGet("{pollId}")]
-        public async Task<ActionResult<IEnumerable<Poll>>> GetPoll(long pollId, string userId)
+        public async Task<ActionResult<IEnumerable<PollDetailsDto>>> GetPoll(long pollId, string userId)
         {
-            PollInfo pollInfo = pollsRepository.GetPoll(pollId, userId);
-            return Ok(pollInfo);
+            var poll = pollsRepository.GetPoll(pollId, userId);
+            
+            PollDetailsDto pollDetails = MapperHelper.Map(poll);
+            
+            return Ok(pollDetails);
         }
 
         [HttpPost]

@@ -33,23 +33,23 @@ namespace PollsApp.Persistence.Repositories
             }
         }
 
-        public PollInfo GetPoll(long pollId, string userId)
+        public Application.DTOs.PollDetails GetPoll(long pollId, string userId)
         {
-            PollInfo pollInfo = null;
+            Application.DTOs.PollDetails pollInfo = null;
             using (DbContextSqlite db = new DbContextSqlite())
             {
                 Poll poll = db.Polls.Where(p => p.Id == pollId).Include(p => p.PollOptions).Include(p => p.Comments).ThenInclude(c => c.User).FirstOrDefault();
                 //Poll poll = db.Polls.Where(p => p.Id == pollId).Include(p => p.PollOptions).FirstOrDefault();
                 if (poll != null)
                 {
-                    pollInfo = new PollInfo();
+                    pollInfo = new Application.DTOs.PollDetails();
                     User user = db.Users.Where(u => u.Id == userId).Include(u => u.Role).FirstOrDefault();
                     //User user = userService.GetUserById(userId).Result;
 
                     pollInfo.Poll = poll;
                     foreach (PollOption pollOption in poll.PollOptions)
                     {
-                        OptionInfo optionInfo = new OptionInfo();
+                        Application.DTOs.OptionDetails optionInfo = new();
                         optionInfo.PollOption = pollOption;
                         optionInfo.Votes = db.Votes.Where(v => v.PollOptionId == pollOption.Id).Count();
                         optionInfo.IsChecked = db.Votes.Any(v => v.PollOptionId == pollOption.Id && v.UserId == userId);
@@ -64,13 +64,13 @@ namespace PollsApp.Persistence.Repositories
                         
                         foreach (var u in users)
                         {
-                            UserInfo userInfo = new UserInfo();
+                            User userInfo = new();
                             if (u.Votes.Any(v => v.PollOptionId == pollOption.Id && v.IsAnon == true))
                             {
                                 var anonUser = db.Users.FirstOrDefault(u => u.Email == "anon@mail.com");
-                                userInfo.UserId = anonUser.Id;
-                                userInfo.UserName = anonUser.Name;
-                                userInfo.UserAvatar = anonUser.Avatar;
+                                userInfo.Id = anonUser.Id;
+                                userInfo.Name = anonUser.Name;
+                                userInfo.Avatar = anonUser.Avatar;
 
                                 if (u.Id == userId)
                                 {
@@ -79,9 +79,9 @@ namespace PollsApp.Persistence.Repositories
                             }
                             else
                             {
-                                userInfo.UserId = u.Id;
-                                userInfo.UserName = u.Name;
-                                userInfo.UserAvatar = u.Avatar;
+                                userInfo.Id = u.Id;
+                                userInfo.Name = u.Name;
+                                userInfo.Avatar = u.Avatar;
                             }
                             optionInfo.Users.Add(userInfo);
                         }

@@ -11,17 +11,22 @@ namespace PollsApp.Application.DTOs
 {
     public class VoteDto
     {
-        
+       
         public long Id { get; set; }
 
         
         public long PollOptionId { get; set; }
 
-       
-        public long UserId { get; set; }
+        
+        public string UserId { get; set; }
 
         
         public bool IsAnon { get; set; }
 
+        
+        public PollOptionDto PollOption { get; set; }
+
+        
+        public UserDto User { get; set; }
     }
 }

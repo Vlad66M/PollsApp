@@ -54,6 +54,11 @@ body {
     border-radius: 50%;
 }
 
+.comment-avatar-img {
+    height: 20px;
+    border-radius: 50%;
+}
+
 .user-panel-col2-details {
     display: flex;
     flex-direction: column;

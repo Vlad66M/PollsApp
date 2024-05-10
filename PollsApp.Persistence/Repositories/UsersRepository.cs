@@ -12,76 +12,16 @@ namespace PollsApp.Persistence.Repositories
 {
     public class UsersRepository : IUsersRepository
     {
-        /*public Role GetRoles(string roleName)
+
+        public User GetUserById(string id)
         {
             using (DbContextSqlite db = new DbContextSqlite())
             {
-                return db.URoles.Where(r => r.Name == "user").FirstOrDefault();
-            }
-        }*/
-
-        /*public User GetUser(string email, string password)
-        {
-            *//*using (DbContextSqlite db = new DbContextSqlite())
-            {
-                var user = db.Users.Where(u => u.Email == email && u.Password == password).Include(u => u.Role).Include(u => u.Votes).FirstOrDefault();
+                var user = db.Users.Where(u => u.Id == id).Include(u => u.Role).Include(u => u.Votes).FirstOrDefault();
+                
                 return user;
-            }*//*
-            throw new NotImplementedException();
-        }*/
-
-        /*public UserDto GetUser(string id)
-        {
-            using (DbContextSqlite db = new DbContextSqlite())
-            {
-                var user = db.Users.Where(u => u.Id == id).Include(u => u.Role).Include(u => u.Votes).FirstOrDefault();
-                UserDto userDto = new UserDto()
-                {
-                    Id = user.Id,
-                    Name = user.Name,
-                    Email = user.Email,
-                    Avatar = user.Avatar,
-                    Votes = user.Votes,
-                    RoleName = user.Role.Name,
-                    Role = user.Role
-
-                };
-                return userDto;
-            }
-        }*/
-
-        /*public User GetUserByEmailAndPassword(string email, string password)
-        {
-            throw new NotImplementedException();
-        }*/
-
-        public UserDto GetUserById(string id)
-        {
-            using (DbContextSqlite db = new DbContextSqlite())
-            {
-                var user = db.Users.Where(u => u.Id == id).Include(u => u.Role).Include(u => u.Votes).FirstOrDefault();
-                UserDto userDto = new UserDto()
-                {
-                    Id = user.Id,
-                    Name = user.Name,
-                    Email = user.Email,
-                    Avatar = user.Avatar,
-                    Votes = user.Votes,
-                    RoleName = user.Role.Name,
-                    Role = user.Role
-
-                };
-                return userDto;
             }
         }
-
-        /*public bool isEmailRegistered(string email)
-        {
-            using (DbContextSqlite db = new DbContextSqlite())
-            {
-                return db.Users.Any(u => u.Email == email);
-            }
-        }*/
 
         public User PutUser(User user)
         {

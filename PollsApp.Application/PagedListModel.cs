@@ -1,4 +1,5 @@
-﻿using PollsApp.Domain;
+﻿using PollsApp.Application.DTOs;
+using PollsApp.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace PollsApp.Application
 {
     public class PagedListModel
     {
-        public List<Poll> polls = new List<Poll>();
+        public List<PollDto> polls = new List<PollDto>();
         public int currentPage;
         public int totalPages;
         public int pageSize;

@@ -15,9 +15,9 @@ namespace PollsApp.Application.DTOs
         public string Name { get; set; }
         public string Email { get; set; }
         public long RoleId { get; set; }
-        public Role Role { get; set; }
+        public RoleDto Role { get; set; }
         public string? RoleName { get; set; }
         public byte[]? Avatar { get; set; }
-        public List<Vote> Votes { get; set; } = new();
+        public List<VoteDto> Votes { get; set; } = new();
     }
 }
