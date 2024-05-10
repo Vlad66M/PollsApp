@@ -177,6 +177,11 @@ namespace PollsApp.Persistence.Repositories
             {
                 vote.User = db.Users.Where(u => u.Id == vote.UserId).FirstOrDefault();
                 vote.PollOption = db.PollOptions.Where(o => o.Id == vote.PollOptionId).FirstOrDefault();
+                if (vote.PollOption is null) return;
+                var pollId = vote.PollOption.PollId;
+                var optionsIds = db.PollOptions.Where(o => o.PollId == pollId).Select(o => o.Id).ToList();
+                var isVoted = db.Votes.Any(v => v.UserId == vote.UserId && optionsIds.Contains(v.PollOptionId));
+                if (isVoted) return;
                 db.Votes.Add(vote);
                 db.SaveChanges();
             }
