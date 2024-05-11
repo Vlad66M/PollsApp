@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PollsApp.Application.DTOs;
 using PollsApp.Domain;
 using PollsApp.Mvc.ApiClient;
+using PollsApp.Mvc.Mapper;
 using PollsApp.Mvc.ViewModels;
 
 namespace PollsApp.Mvc.Controllers
@@ -40,6 +41,61 @@ namespace PollsApp.Mvc.Controllers
             }
 
             return NotFound();
+
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpGet("/admin/create")]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpPost("/admin/create")]
+        public async Task<IActionResult> Create(string Title, bool AllowComments, bool HasEndDate, DateTime? EndDate, string[] options)
+        {
+            if (ModelState.IsValid)
+            {
+                if (options == null || options.Length == 0)
+                {
+                    ModelState.AddModelError("", "Не заданы опции опроса");
+                    return View();
+                }
+
+                PostPollModel model = new();
+                model.Title = Title;
+                model.StartDate = DateTime.Now;
+                if (HasEndDate)
+                {
+                    model.EndDate = EndDate;
+                }
+                model.AllowComments = AllowComments;
+                model.IsActive = true;
+                model.PollOptions = options.ToList();
+
+                bool result = await webApiClient.PostPollAsync(model);
+
+                if (result)
+                {
+                    return RedirectToAction("Index", "Polls");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Не удалось добавить опрос");
+                    return View();
+                }
+
+            }
+            else
+            {
+                if (String.IsNullOrEmpty(Title))
+                {
+                    ModelState.AddModelError("", "Заголовок не может быть пустым");
+                }
+
+                return View();
+            }
 
         }
 
@@ -114,25 +170,20 @@ namespace PollsApp.Mvc.Controllers
 
         [Authorize(Roles = "admin")]
         [HttpPost]
-        public async Task<IActionResult> Finish(string id)
+        public async Task<IActionResult> Finish([FromForm] string id)
         {
             long pollId = long.Parse(id);
             string userIdString = HttpContext.User.FindFirst("UserId").Value.ToString();
 
             var p = await webApiClient.GetPollInfoAsync(pollId, userIdString);
 
-            PostPollModel model = new();
-            model.Title = p.Poll.Title;
-            model.Id = pollId;
-            model.EndDate = p.Poll.EndDate;
-            foreach (var option in p.Poll.PollOptions)
-            {
-                model.PollOptions.Add(option.Text);
-            }
+            PostPollModel model = MapperHelper.MapToPostPollModel(p);
             model.IsActive = false;
+
             await webApiClient.PutPollAsync(model);
 
-            return RedirectToAction("Index", "Admin");
+            var currentPage = Request.Headers.Referer.ToString();
+            return Redirect(currentPage);
         }
 
 
@@ -145,18 +196,49 @@ namespace PollsApp.Mvc.Controllers
 
             var p = await webApiClient.GetPollInfoAsync(pollId, userIdString);
 
-            PostPollModel model = new();
-            model.Title = p.Poll.Title;
-            model.Id = pollId;
-            model.EndDate = p.Poll.EndDate;
-            foreach (var option in p.Poll.PollOptions)
-            {
-                model.PollOptions.Add(option.Text);
-            }
+            PostPollModel model = MapperHelper.MapToPostPollModel(p);
             model.IsActive = true;
+            
             await webApiClient.PutPollAsync(model);
 
-            return RedirectToAction("Index", "Admin");
+            var currentPage = Request.Headers.Referer.ToString();
+            return Redirect(currentPage);
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpPost]
+        public async Task<IActionResult> ForbidComments([FromForm] string id)
+        {
+            long pollId = long.Parse(id);
+            string userIdString = HttpContext.User.FindFirst("UserId").Value.ToString();
+
+            var p = await webApiClient.GetPollInfoAsync(pollId, userIdString);
+
+            PostPollModel model = MapperHelper.MapToPostPollModel(p);
+            model.AllowComments = false;
+
+            await webApiClient.PutPollAsync(model);
+
+            var currentPage = Request.Headers.Referer.ToString();
+            return Redirect(currentPage);
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpPost]
+        public async Task<IActionResult> AllowComments([FromForm] string id)
+        {
+            long pollId = long.Parse(id);
+            string userIdString = HttpContext.User.FindFirst("UserId").Value.ToString();
+
+            var p = await webApiClient.GetPollInfoAsync(pollId, userIdString);
+
+            PostPollModel model = MapperHelper.MapToPostPollModel(p);
+            model.AllowComments = true;
+
+            await webApiClient.PutPollAsync(model);
+
+            var currentPage = Request.Headers.Referer.ToString();
+            return Redirect(currentPage);
         }
 
 
@@ -168,7 +250,8 @@ namespace PollsApp.Mvc.Controllers
 
             await webApiClient.DeletePollAsync(pollId);
 
-            return RedirectToAction("Index", "Admin");
+            var currentPage = Request.Headers.Referer.ToString();
+            return Redirect(currentPage);
         }
 
 

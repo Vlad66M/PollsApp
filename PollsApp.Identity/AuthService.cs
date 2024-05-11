@@ -87,6 +87,10 @@ namespace PollsApp.Identity
             if (result.Succeeded)
             {
                 await _userManager.AddToRoleAsync(user, "user");
+                //
+                Claim claim = new Claim("isbanned", "false");
+                await _userManager.AddClaimAsync(user, claim);
+                //
                 return new RegistrationResponse() { UserId = user.Id };
             }
             else

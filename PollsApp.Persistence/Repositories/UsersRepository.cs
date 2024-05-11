@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PollsApp.Application;
 using PollsApp.Application.DTOs;
 using PollsApp.Application.Persistence;
 using PollsApp.Domain;
@@ -41,5 +42,6 @@ namespace PollsApp.Persistence.Repositories
                 return user;
             }
         }
+
     }
 }

@@ -16,6 +16,7 @@
       <th scope="col">Дата завершения</th>
       <th scope="col">Статус</th>
       <th scope="col">Завершить</th>
+      <th scope="col">Комментарии</th>
       <th scope="col">Изменить</th>
       <th scope="col">Удалить</th>
     </tr>
@@ -42,6 +43,22 @@
                             <form method="post" asp-action="Restart" asp-controller="Admin">
                                 <input type="text" name="id" hidden value="@poll.Id" />
                                 <button class="btn-light" type="submit">Возобновить</button>
+                            </form>
+                        }
+                    </td>
+                    <td>
+                        @if (poll.AllowComments)
+                        {
+                            <form method="post" asp-action="ForbidComments" asp-controller="Admin">
+                                <input type="text" name="id" hidden value="@poll.Id" />
+                                <button class="btn-light" type="submit">Запретить</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <form method="post" asp-action="AllowComments" asp-controller="Admin">
+                                <input type="text" name="id" hidden value="@poll.Id" />
+                                <button class="btn-light" type="submit">Разрешить</button>
                             </form>
                         }
                     </td>

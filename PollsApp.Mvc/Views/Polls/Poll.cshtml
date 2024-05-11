@@ -91,7 +91,10 @@
     <button type="submit" @(Model.PollInfo.IsVoted ? "disabled" : "") @disabled>Проголосовать</button>
 </form>
 
-<partial name="_Comments" />
+@if (Model.PollInfo.Poll.AllowComments)
+{
+    <partial name="_Comments" />
+}
 
 <input type="text" hidden value="@Model.PollInfo.Poll.Id" id="current-poll-id"/>
 

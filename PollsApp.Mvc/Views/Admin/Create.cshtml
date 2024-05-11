@@ -1,0 +1,50 @@
+﻿@using PollsApp.Application.DTOs
+
+@model CreatePollViewModel
+
+<form asp-action="Create" asp-controller="Polls" asp-antiforgery="true">
+    <div class="validation" asp-validation-summary="ModelOnly">  </div>
+    <div>
+        <div class="form-group-create-poll">
+            <label for="Title"> Заголовок опроса </label>
+            <input type="text" name="Title"/>
+            <span asp-validation-for="Title" />
+        </div>
+
+        <div class="form-group-create-poll">
+            <label for="AllowComments">Разрешить комментарии</label>
+            <input type="checkbox" name="AllowComments" value="true" />
+        </div>
+        
+        <div id="datepicker-container" class="form-group-create-poll">
+            <label for="HasEndDate">Добавить дату зварешнеия</label>
+            <input id="ckbx-has-end-date" type="checkbox" name="HasEndDate" value="false" />
+            <br />
+            <input asp-for="EndDate" name="EndDate" id="datepicker" class="datepicker-hidden" value="@DateTime.Now.ToString("yyyy-MM-ddThh:mm")" />
+        </div>
+
+        <div class="add-option-div" id="add-option">Добавить опцию</div>
+        <div id="options-container">
+
+        </div>
+
+        <div class="form-group-create-poll">
+
+            <input type="submit" value="Создать" class="btn btn-outline-dark" />
+
+        </div>
+    </div>
+
+</form>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    $(function () {
+        $("#datepicker").datepicker();
+    });
+</script>
+
+<script src="~/js/create_poll.js"></script>

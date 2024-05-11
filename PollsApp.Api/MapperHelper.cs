@@ -1,4 +1,5 @@
 ﻿using PollsApp.Application.DTOs;
+using PollsApp.Domain;
 
 namespace PollsApp.Api
 {
