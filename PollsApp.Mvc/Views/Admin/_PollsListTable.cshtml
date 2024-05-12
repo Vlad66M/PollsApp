@@ -26,7 +26,7 @@
             {
                 <tr>
                     <td>@poll.Id</td>
-                    <td><a href="~/polls/@poll.Id"><h3>@poll.Title</h3></a></td>
+                    <td><a class="poll-item" href="~/polls/@poll.Id"><h3>@poll.Title</h3></a></td>
                     <td>@poll.StartDate</td>
                     <td>@poll.EndDate</td>
                     <td>@(poll.IsActive == true ? "активный" : "завершенный")</td>

@@ -4,16 +4,26 @@
 
 @model PollsViewModel
 
-<div id="polls-container">
+<div class="polls-container" id="polls-container">
     @foreach (var poll in Model.PagedListModel.polls)
     {
-        <a href="~/polls/@poll.Id"><h3>@poll.Title</h3></a>
+        <div class="poll-item-cont">
+            <p onclick="openpoll(@poll.Id)" class="poll-item">@poll.Title</p>
+        </div>
+        @* <div class="truncate">
+            <a class="poll-item" href="~/polls/@poll.Id">
+                <h3>
+                    @poll.Title
+                </h3>
+            </a>
+        </div> *@
+        @* <br /> *@
     }
-    <div>
+    <div class="btns-container">
         @if (Model.PagedListModel.hasPrevious || Model.PagedListModel.hasNext)
         {
-            <button id="btn-prev" @(Model.PagedListModel.hasPrevious ? "" : "disabled")>Назад</button>
-            <button id="btn-next" @(Model.PagedListModel.hasNext ? "" : "disabled")>Вперед</button>
+            <button class="nav-btn" id="btn-prev" @(Model.PagedListModel.hasPrevious ? "" : "disabled")>Назад</button>
+            <button class="nav-btn" id="btn-next" @(Model.PagedListModel.hasNext ? "" : "disabled")>Вперед</button>
         }
     </div>
 </div>

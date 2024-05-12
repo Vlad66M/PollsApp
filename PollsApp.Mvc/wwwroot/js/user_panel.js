@@ -8,8 +8,8 @@ document.getElementById("show-user-panel-details").addEventListener("click", (e)
         let rect = document.getElementById("show-user-panel-details").getBoundingClientRect();
         /*document.getElementById("user-panel-details").style.right = (rect.right) + 'px';
         document.getElementById("user-panel-details").style.top = rect.bottom + 'px';*/
-        document.getElementById("user-panel-details").style.left = (e.clientX - 40) + 'px';
-        document.getElementById("user-panel-details").style.top = (e.clientY + 20)+ 'px';
+        document.getElementById("user-panel-details").style.left = (e.clientX - 50) + 'px';
+        document.getElementById("user-panel-details").style.top = (e.clientY + 30)+ 'px';
         console.log(e.clientX);
         console.log(e.clientY);
     }
