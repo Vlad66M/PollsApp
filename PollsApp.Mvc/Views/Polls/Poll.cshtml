@@ -52,16 +52,33 @@
 
             <div class="option-item">
                 <label class="option-label" for="@option.PollOption.Id">
-                    <div class="option-text-container">
-                        @option.PollOption.Text
-                    </div>
+                    @if (!String.IsNullOrEmpty(option.PollOption.Text))
+                    {
+                        <div class="option-text-container">
+                            @option.PollOption.Text
+                        </div>
+                    }
+                    @if (option.PollOption.Photo is not null)
+                    {
+                        <div class="option-photo-container">
+                            <img class="option-photo" src="data:image/jpeg;base64,@Convert.ToBase64String(option.PollOption.Photo)" alt="img"/>
+                        </div>
+                    }
+                    @if(option.PollOption.Audio is not null)
+                    {
+                        <div id="audio-player" class="option-audio-container">
+                            <audio class="audio" controls src="data:audio/mp3;base64,@Convert.ToBase64String(option.PollOption.Audio)"></audio>
+                        </div>
+
+                        
+                    }
                     <div class="lines-container">
                         <div id="green-@option.PollOption.Id" class="green-line" style="width: @(green)px"></div>
                         <div id="white-@option.PollOption.Id" class="white-line" style="width: @(white)px"></div>
                     </div>
                     <input type="radio" name="optionId" value="@option.PollOption.Id" @(option.IsChecked ? "checked" : "") @disabled @(Model.PollInfo.IsVoted ? "disabled" : "") />
                     <p class="votes-number">@option.Votes</p>
-                    <div class="peek" id="show-voted-@option.PollOption.Id" onmouseover="showVoted(@option.PollOption.Id, 1)" onmouseleave="hideVoted(@option.PollOption.Id)">&#128065;</div>
+                    <div class="peek" id="show-voted-@option.PollOption.Id" onmouseover="showVoted(@option.PollOption.Id)" onmouseleave="hideVoted(@option.PollOption.Id)">&#128065;</div>
 
                     <div class="hidden" id="voted-users-@option.PollOption.Id">
                         @foreach(var u in option.Users)
@@ -101,3 +118,5 @@
 <script src="~/js/poll.js"></script>
 <script src="~/js/signalr/dist/browser/signalr.js" charset="utf-8"></script>
 <script src="~/js/comments.js"></script>
+<script src="~/js/emoji.js"></script>
+

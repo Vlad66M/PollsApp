@@ -16,7 +16,11 @@ namespace PollsApp.Application.DTOs
         public long Id { get; set; }
 
         
-        public string Text { get; set; }
+        public string? Text { get; set; }
+
+        public byte[]? Photo { get; set; }
+
+        public byte[]? Audio { get; set; }
 
         
         public long PollId { get; set; }

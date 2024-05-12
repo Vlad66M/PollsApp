@@ -1,6 +1,7 @@
 ﻿@using PollsApp.Application.DTOs
+@using PollsApp.Mvc.ViewModels
 
-@model CreatePollViewModel
+@model EditPollViewModel
 
 <form method="post" asp-action="Edit" asp-controller="Admin" asp-antiforgery="true">
     <div class="validation" asp-validation-summary="ModelOnly">  </div>
@@ -25,10 +26,30 @@
 
         <div class="add-option-div" id="add-option">Добавить опцию</div>
         <div id="options-container">
-            @foreach (var option in Model.Options)
+            @for (var opNumber = 0; opNumber < Model.PollOptions.Count; opNumber++)
             {
                 <div class="option-item-create">
-                    <input type="text" name="options" class="poll-option-input" value="@option" />
+                    <input type="text" name="options" class="poll-option-input" value="@Model.PollOptions[opNumber].Text" />
+
+                    @if (!String.IsNullOrEmpty(Model.PollOptions[opNumber].Photo))
+                    {
+                        <div class="option-photo-container">
+                            <img src="data:image/jpeg;base64,@Model.PollOptions[opNumber].Photo" alt="img" />
+                        </div>
+                    }
+                    @if (!String.IsNullOrEmpty(Model.PollOptions[opNumber].Audio))
+                    {
+                        <div id="audio-player" class="option-audio-container">
+                            <audio class="audio" controls src="data:audio/mp3;base64,@Model.PollOptions[opNumber].Audio"></audio>
+                        </div>
+
+                    }
+                    @* <input type="file" accept="audio/*" /> *@
+                    <input type="text" name="audios" hidden value="@Model.PollOptions[opNumber].Audio" />
+
+                    @* <input type="file" accept="image/*" /> *@
+                    <input type="text" name="photos" hidden value="@Model.PollOptions[opNumber].Photo" />
+
                     <div class="remove-option" onclick="return this.parentNode.remove();">&#10060;</div>
                 </div>
             }

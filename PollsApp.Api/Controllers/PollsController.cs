@@ -85,21 +85,10 @@ new JsonSerializerSettings
         {
             Console.WriteLine("PostPoll");
 
-            Poll poll = new();
-            poll.Title = model.Title;
-            poll.IsActive = model.IsActive;
-            poll.AllowComments = model.AllowComments;
-            poll.StartDate = model.StartDate;
-            poll.EndDate = model.EndDate;
-            foreach (string option in model.PollOptions)
-            {
-                PollOption o = new PollOption();
-                o.Poll = poll;
-                o.Text = option;
-                poll.PollOptions.Add(o);
-            }
+            Poll poll = MapperHelper.MapToPoll(model);
 
             pollsRepository.PostPoll(poll);
+
             return Ok(poll);
 
         }
@@ -107,25 +96,14 @@ new JsonSerializerSettings
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPoll(int id, PostPollModel model)
         {
-            Poll poll = new();
-            poll.Id = id;
-            poll.Title = model.Title;
-            poll.IsActive = model.IsActive;
-            poll.AllowComments = model.AllowComments;
-            poll.EndDate = model.EndDate;
-            foreach (string option in model.PollOptions)
-            {
-                PollOption o = new PollOption();
-                o.Poll = poll;
-                o.Text = option;
-                poll.PollOptions.Add(o);
-            }
             Console.WriteLine("PutPoll");
-            if (poll == null)
-            {
-                return BadRequest();
-            }
+
+            Poll poll = MapperHelper.MapToPoll(model);
+
+            poll.Id = id;
+            
             pollsRepository.PutPoll(poll);
+
             return Ok(poll);
 
         }

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PollsApp.Application.Persistence;
@@ -65,6 +66,12 @@ namespace PollsApp.Mvc
             {
                 o.EnableDetailedErrors = true;
                 o.MaximumReceiveMessageSize = 10240000; // bytes
+            });
+
+            builder.Services.Configure<FormOptions>(x =>
+            {
+                x.ValueLengthLimit = int.MaxValue;
+                x.MultipartBodyLengthLimit = int.MaxValue; // In case of multipart
             });
 
             var app = builder.Build();

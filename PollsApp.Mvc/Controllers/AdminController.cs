@@ -53,7 +53,7 @@ namespace PollsApp.Mvc.Controllers
 
         [Authorize(Roles = "admin")]
         [HttpPost("/admin/create")]
-        public async Task<IActionResult> Create(string Title, bool AllowComments, bool HasEndDate, DateTime? EndDate, string[] options)
+        public async Task<IActionResult> Create(string Title, bool AllowComments, bool HasEndDate, DateTime? EndDate, string[] options, string[] audios, string[] photos)
         {
             if (ModelState.IsValid)
             {
@@ -72,7 +72,23 @@ namespace PollsApp.Mvc.Controllers
                 }
                 model.AllowComments = AllowComments;
                 model.IsActive = true;
-                model.PollOptions = options.ToList();
+
+                for(int i =0;i< options.Length; i++)
+                {
+                    PostPollOption option = new()
+                    {
+                        Text = options[i],
+                        Photo = photos[i],
+                        Audio = audios[i]
+                    };
+                    model.PollOptions.Add(option);
+                }
+
+                if (HasEmptyOption(model.PollOptions))
+                {
+                    ModelState.AddModelError("", "Опция не может быть пустой");
+                    return View();
+                }
 
                 bool result = await webApiClient.PostPollAsync(model);
 
@@ -109,17 +125,26 @@ namespace PollsApp.Mvc.Controllers
             var pollInfo = await webApiClient.GetPollInfoAsync(id, userIdString);
             if (pollInfo != null)
             {
-                var model = new CreatePollViewModel();
+                var model = new EditPollViewModel();
                 model.Title = pollInfo.Poll.Title;
                 model.IsActive = pollInfo.Poll.IsActive;
                 model.AllowComments = pollInfo.Poll.AllowComments;
-                model.Created = pollInfo.Poll.StartDate;
+                //model.Created = pollInfo.Poll.StartDate;
                 model.EndDate = pollInfo.Poll.EndDate;
                 if (pollInfo.Poll.EndDate != null)
                 {
                     model.HasEndDate = true;
                 }
-                model.Options = pollInfo.Poll.PollOptions.Select(o => o.Text).ToList();
+                foreach(var o in pollInfo.Options)
+                {
+                    var option = new PostPollOption()
+                    {
+                        Text = o.PollOption.Text,
+                        Photo = o.PollOption.Photo is null ? "" : Convert.ToBase64String(o.PollOption.Photo),
+                        Audio = o.PollOption.Audio is null? "" : Convert.ToBase64String(o.PollOption.Audio)
+                    };
+                    model.PollOptions.Add(option);
+                }
 
                 return View(model);
 
@@ -131,33 +156,35 @@ namespace PollsApp.Mvc.Controllers
 
         [Authorize(Roles = "admin")]
         [HttpPost("/admin/edit/{id:long}")]
-        public async Task<IActionResult> Edit(int id, string Title, bool AllowComments, bool HasEndDate, DateTime? EndDate, string[] options)
+        public async Task<IActionResult> Edit(int id, string Title, bool AllowComments, bool HasEndDate, DateTime? EndDate, string[] options, string[] audios, string[] photos)
         {
             if (ModelState.IsValid)
             {
-                Poll poll = new();
-                poll.Title = Title;
-                poll.AllowComments = AllowComments;
+                PostPollModel model = new();
+                model.Id = id;
+                model.Title = Title;
                 if (HasEndDate)
                 {
-                    poll.EndDate = EndDate;
+                    model.EndDate = EndDate;
                 }
-                foreach (string option in options)
+                model.AllowComments = AllowComments;
+                model.IsActive = true;
+
+                for (int i = 0; i < options.Length; i++)
                 {
-                    PollOption pollOption = new();
-                    pollOption.Poll = null;
-                    pollOption.PollId = poll.Id;
-                    pollOption.Text = option;
-                    poll.PollOptions.Add(pollOption);
+                    PostPollOption option = new()
+                    {
+                        Text = options[i],
+                        Photo = photos[i],
+                        Audio = audios[i]
+                    };
+                    model.PollOptions.Add(option);
                 }
 
-                PostPollModel model = new();
-                model.Title = Title;
-                model.Id = id;
-                model.EndDate = poll.EndDate;
-                foreach (string option in options)
+                if (HasEmptyOption(model.PollOptions))
                 {
-                    model.PollOptions.Add(option);
+                    ModelState.AddModelError("", "Опция не может быть пустой");
+                    return View();
                 }
 
                 await webApiClient.PutPollAsync(model);
@@ -270,6 +297,20 @@ namespace PollsApp.Mvc.Controllers
             model.PagedListModel = polls;
 
             return PartialView("_PollsListTable", model);
+        }
+
+        private bool HasEmptyOption(List<PostPollOption> options)
+        {
+            foreach (var item in options)
+            {
+                if(String.IsNullOrEmpty(item.Text)
+                   && String.IsNullOrEmpty(item.Photo)
+                   && String.IsNullOrEmpty(item.Audio))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

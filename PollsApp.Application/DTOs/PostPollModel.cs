@@ -27,7 +27,7 @@ namespace PollsApp.Application.DTOs
         public bool AllowComments { get; set; }
 
 
-        public List<string> PollOptions { get; set; } = new();
+        public List<PostPollOption> PollOptions { get; set; } = new();
 
     }
 }

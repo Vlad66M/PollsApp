@@ -5,6 +5,34 @@ namespace PollsApp.Api
 {
     public static class MapperHelper
     {
+        public static Poll MapToPoll(PostPollModel model)
+        {
+            Poll poll = new();
+            poll.Title = model.Title;
+            poll.IsActive = model.IsActive;
+            poll.AllowComments = model.AllowComments;
+            poll.StartDate = model.StartDate;
+            poll.EndDate = model.EndDate;
+            foreach (var option in model.PollOptions)
+            {
+                PollOption o = new PollOption();
+                o.Poll = poll;
+                o.Text = option.Text;
+                try
+                {
+                    o.Photo = Convert.FromBase64String(option.Photo);
+                }
+                catch { }
+                try
+                {
+                    o.Audio = Convert.FromBase64String(option.Audio);
+                }
+                catch { }
+
+                poll.PollOptions.Add(o);
+            }
+            return poll;
+        }
         public static PollDetailsDto Map(PollDetails poll)
         {
             PollDetailsDto pollDetails = new PollDetailsDto()
@@ -53,6 +81,8 @@ namespace PollsApp.Api
                     {
                         Id = option.PollOption.Id,
                         Text = option.PollOption.Text,
+                        Photo = option.PollOption.Photo,
+                        Audio = option.PollOption.Audio,
                         PollId = option.PollOption.Id
                         //Votes = mapper.Map<Vote[], List<VoteDto>>(option.PollOption.Votes.ToArray())
                     }

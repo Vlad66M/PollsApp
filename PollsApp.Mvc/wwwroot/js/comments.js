@@ -17,11 +17,30 @@ connection.on("ReceiveComment", function (comment) {
     let currentPollId = document.getElementById("poll-id-current").value;
     if (currentPollId != comment.pollId) return;
 
+    let commentItem = document.createElement("div");
+    commentItem.className = "comment";
+
+    let img = document.createElement("img");
+    img.className = "comment-avatar-img";
+    if (comment.userAvatar == "") {
+        img.src = "https://i.pinimg.com/736x/0d/64/98/0d64989794b1a4c9d89bff571d3d5842.jpg";
+    }
+    else {
+        img.src = "data:image/jpeg;base64," + comment.userAvatar;
+    }
+
+    let userName = document.createElement("p");
+    userName.innerHTML = comment.userName;
+
     let text = document.createElement("p");
     text.textContent = comment.text;
 
+    commentItem.appendChild(img);
+    commentItem.appendChild(userName);
+    commentItem.appendChild(text);
+
     let comments = document.getElementById("comments-list");
-    comments.appendChild(text);
+    comments.appendChild(commentItem);
 });
 
 document.getElementById("comments-textarea").addEventListener("keydown", function (event) {

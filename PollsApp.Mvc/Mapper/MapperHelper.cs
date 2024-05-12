@@ -12,7 +12,13 @@ namespace PollsApp.Mvc.Mapper
             model.EndDate = poll.Poll.EndDate;
             foreach (var option in poll.Options)
             {
-                model.PollOptions.Add(option.PollOption.Text);
+                PostPollOption postPollOption = new PostPollOption()
+                {
+                    Text = option.PollOption.Text,
+                    Photo = option.PollOption.Photo is null ? null : Convert.ToBase64String(option.PollOption.Photo),
+                    Audio = option.PollOption.Audio is null ? null : Convert.ToBase64String(option.PollOption.Audio)
+                };
+                model.PollOptions.Add(postPollOption);
             }
             model.IsActive = poll.Poll.IsActive;
             model.AllowComments = poll.Poll.AllowComments;

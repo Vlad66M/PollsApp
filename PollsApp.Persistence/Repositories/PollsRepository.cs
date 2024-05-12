@@ -207,11 +207,45 @@ namespace PollsApp.Persistence.Repositories
                         }
                         else
                         {
-                            string line1 = String.Join("", _poll.PollOptions.Select(o => o.Text).ToArray());
-                            string line2 = String.Join("", poll.PollOptions.Select(o => o.Text).ToArray());
-                            if (line1 != line2)
+                            for(int i=0; i<poll.PollOptions.Count; i++) 
                             {
-                                optionsEditted = true;
+                                if (poll.PollOptions[i].Text != _poll.PollOptions[i].Text)
+                                {
+                                    optionsEditted = true;
+                                    break;
+                                }
+                                if(poll.PollOptions[i].Photo is not null)
+                                {
+                                    try
+                                    {
+                                        if (!poll.PollOptions[i].Photo.SequenceEqual(_poll.PollOptions[i].Photo))
+                                        {
+                                            optionsEditted = true;
+                                            break;
+                                        }
+                                    }
+                                    catch
+                                    {
+                                        optionsEditted = true;
+                                        break;
+                                    }
+                                }
+                                if (poll.PollOptions[i].Audio is not null)
+                                {
+                                    try
+                                    {
+                                        if (!poll.PollOptions[i].Audio.SequenceEqual(_poll.PollOptions[i].Audio))
+                                        {
+                                            optionsEditted = true;
+                                            break;
+                                        }
+                                    }
+                                    catch
+                                    {
+                                        optionsEditted = true;
+                                        break;
+                                    }
+                                }
                             }
                         }
                         if (optionsEditted)
@@ -225,6 +259,8 @@ namespace PollsApp.Persistence.Repositories
                                 _poll.PollOptions = new List<PollOption>();
                                 PollOption o = new();
                                 o.Text = option.Text;
+                                o.Photo = option.Photo;
+                                o.Audio = option.Audio;
                                 o.Poll = _poll;
                                 _poll.PollOptions.Add(o);
                                 db.PollOptions.Add(o);

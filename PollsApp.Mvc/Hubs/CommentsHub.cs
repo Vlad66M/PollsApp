@@ -28,7 +28,7 @@ namespace PollsApp.Mvc.Hubs
                 {
                     PollId = pollIdString,
                     UserName = user.Name,
-                    UserAvatar = user.Avatar,
+                    UserAvatar = user.Avatar is null ? "" : Convert.ToBase64String(user.Avatar),
                     Text = text
                 };
 

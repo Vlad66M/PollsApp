@@ -215,12 +215,19 @@ namespace PollsApp.Api.Migrations
                         .HasColumnType("INTEGER")
                         .HasColumnName("id");
 
+                    b.Property<byte[]>("Audio")
+                        .HasColumnType("BLOB")
+                        .HasColumnName("audio");
+
+                    b.Property<byte[]>("Photo")
+                        .HasColumnType("BLOB")
+                        .HasColumnName("photo");
+
                     b.Property<long>("PollId")
                         .HasColumnType("INTEGER")
                         .HasColumnName("poll_id");
 
                     b.Property<string>("Text")
-                        .IsRequired()
                         .HasColumnType("TEXT")
                         .HasColumnName("text");
 

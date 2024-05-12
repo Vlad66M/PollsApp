@@ -15,7 +15,13 @@ namespace PollsApp.Domain
         public long Id { get; set; }
 
         [Column("text")]
-        public string Text { get; set; }
+        public string? Text { get; set; }
+
+        [Column("photo")]
+        public byte[]? Photo { get; set; }
+
+        [Column("audio")]
+        public byte[]? Audio { get; set; }
 
         [Column("poll_id")]
         public long PollId { get; set; }

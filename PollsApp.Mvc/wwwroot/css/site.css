@@ -267,3 +267,62 @@ input[type=radio] {
     display: flex;
     flex-direction: row;
 }
+
+.audio {
+    background-color: #56AEFF;
+    color: blue;
+    height: 20px;
+    width: 150px;
+}
+
+audio::-webkit-media-controls-panel {
+    background-color: #56AEFF;
+}
+
+.poll-option-input{
+    max-height: 30px;
+}
+
+.option-photo{
+    height: 40px;
+}
+
+.label-hidden {
+    visibility: hidden;
+    width: 1px;
+    cursor: pointer;
+    user-select: none;
+}
+
+#emoji {
+    color: black;
+    margin: 3px 3px 0 0;
+    cursor: pointer;
+    user-select: none;
+    width: 20px;
+    height: 20px;
+    position: relative;
+}
+
+.emojis-hidden {
+    display: none;
+    position: relative;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.emojis-visible {
+    display: block;
+    position: relative;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.emoji-row {
+    display: flex;
+    flex-direction: row;
+}
