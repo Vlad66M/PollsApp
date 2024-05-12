@@ -4,9 +4,7 @@
 @model PollsViewModel
 
 <div class="comments-container" id="comments-container">
-
-    <partial name="_CommentsInput" />
-
+    <h4>Комментарии</h4>
     <div class="comments-list" id="comments-list">
         @foreach (var comment in Model.PollInfo.Poll.Comments)
         {
@@ -17,11 +15,13 @@
             }
             <div class="comment">
                 <img class="comment-avatar-img" src="@imgSrc" alt="img" />
-                <p>@comment.User.Name</p>
-                <p>@comment.Text</p>
+                <p class="comment-user-name">@comment.User.Name :</p>
+                <p class="comment-text">@comment.Text</p>
             </div>
 
         }
     </div>
+
+    <partial name="_CommentsInput" />
     
 </div>

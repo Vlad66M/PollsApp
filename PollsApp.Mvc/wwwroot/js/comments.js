@@ -4,6 +4,8 @@
 
 var connection = new signalR.HubConnectionBuilder().withUrl("/commentsHub").withAutomaticReconnect().build();
 
+document.getElementById("comments-list").scrollTop = document.getElementById("comments-list").scrollHeight;
+
 connection.start().then(function () {
     console.log("Connection started comments.js");
 
@@ -30,10 +32,12 @@ connection.on("ReceiveComment", function (comment) {
     }
 
     let userName = document.createElement("p");
-    userName.innerHTML = comment.userName;
+    userName.className = "comment-user-name";
+    userName.innerHTML = comment.userName + ": ";
 
     let text = document.createElement("p");
     text.textContent = comment.text;
+    text.className = "comment-text";
 
     commentItem.appendChild(img);
     commentItem.appendChild(userName);
@@ -41,6 +45,10 @@ connection.on("ReceiveComment", function (comment) {
 
     let comments = document.getElementById("comments-list");
     comments.appendChild(commentItem);
+
+    comments.scrollTop = comments.scrollHeight;
+
+    document.getElementById("comments-textarea").value = "";
 });
 
 document.getElementById("comments-textarea").addEventListener("keydown", function (event) {
