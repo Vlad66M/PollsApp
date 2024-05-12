@@ -18,12 +18,12 @@ document.getElementById("add-option").addEventListener("click", () => {
     let optionItem = document.createElement("div");
     optionItem.className = "option-item-create";
 
-    let option = document.createElement("input");
-    option.className = "poll-option-input";
-    option.setAttribute('type', 'text');
+    let optionText = document.createElement("input");
+    optionText.className = "poll-option-input";
+    optionText.setAttribute('type', 'text');
     let opTextName = 'options[' + opNumber + '].text';
-    option.setAttribute('name', 'options');
-    optionItem.appendChild(option);
+    optionText.setAttribute('name', 'options');
+    optionItem.appendChild(optionText);
 
     let optionAudioVal = document.createElement("input");
     optionAudioVal.id = "audio" + opNumber + 'val';
@@ -49,6 +49,8 @@ document.getElementById("add-option").addEventListener("click", () => {
     optionAudio.setAttribute('type', 'file');
     optionAudio.setAttribute('accept', 'audio/*');
     optionItem.appendChild(optionAudio);
+    /*let br1 = document.createElement("br");
+    optionItem.appendChild(br1);*/
     optionAudio.addEventListener("change", (e) => {
 
         setTimeout(() => {
@@ -77,7 +79,9 @@ document.getElementById("add-option").addEventListener("click", () => {
                     sound.controls = 'controls';
                     sound.src = "data:audio/mp3;base64," + audio64String;
                     sound.type = 'audio/mpeg';
-                    document.getElementById("options-container").appendChild(sound);
+                    //document.getElementById("options-container").appendChild(sound);
+                    //t.parentNode.appendChild(sound);
+                    t.parentNode.insertBefore(sound, t);
                     t.className = "hidden";
                     document.getElementById("audio" + opNumber + "label").className = "hidden";
                 };
@@ -100,6 +104,8 @@ document.getElementById("add-option").addEventListener("click", () => {
     optionPhoto.setAttribute('type', 'file');
     optionPhoto.setAttribute('accept', 'image/*');
     optionItem.appendChild(optionPhoto);
+    /*let br2 = document.createElement("br");
+    optionItem.appendChild(br2);*/
     optionPhoto.addEventListener("change", (e) => {
 
         setTimeout(() => {
@@ -126,7 +132,9 @@ document.getElementById("add-option").addEventListener("click", () => {
                     var img = document.createElement('img');
                     img.className = "option-photo";
                     img.src = "data:image/jpeg;base64," + photo64String;
-                    document.getElementById("options-container").appendChild(img);
+                    //document.getElementById("options-container").appendChild(img);
+                    //t.parentNode.appendChild(img);
+                    t.parentNode.insertBefore(img, t);
                     t.className = "hidden";
                     document.getElementById("photo" + opNumber + "label").className = "hidden";
 
