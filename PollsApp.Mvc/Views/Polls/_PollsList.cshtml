@@ -22,8 +22,8 @@
     <div class="btns-container">
         @if (Model.PagedListModel.hasPrevious || Model.PagedListModel.hasNext)
         {
-            <button class="nav-btn" id="btn-prev" @(Model.PagedListModel.hasPrevious ? "" : "disabled")>Назад</button>
-            <button class="nav-btn" id="btn-next" @(Model.PagedListModel.hasNext ? "" : "disabled")>Вперед</button>
+            <button class="nav-btn btn btn-outline-dark" id="btn-prev" @(Model.PagedListModel.hasPrevious ? "" : "disabled")>Назад</button>
+            <button class="nav-btn btn btn-outline-dark" id="btn-next" @(Model.PagedListModel.hasNext ? "" : "disabled")>Вперед</button>
         }
     </div>
 </div>

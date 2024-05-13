@@ -10,51 +10,57 @@
     }
 }
 
-<h3> Изменение профили </h3>
+<div class="login-container-global">
+    <div class="register-container">
+        <h3> Изменение профиля </h3>
 
-<form asp-action="Edit" asp-controller="Account" asp-antiforgery="true" enctype="multipart/form-data">
-    <div class="validation" asp-validation-summary="ModelOnly">  </div>
-    <div>
-        <div class="form-group">
-            <label asp-for="Email"> Введите email </label>
-            <input type="text" asp-for="Email">
-            <span asp-validation-for="Email" />
-        </div>
-        <div class="form-group">
-            <label asp-for="Name"> Введите имя </label>
-            <input type="text" asp-for="Name">
-            <span asp-validation-for="Name" />
-        </div>
-        <div class="form-group">
-            <label for="input-image" asp-for="Avatar">Загрузить аватар &#128247; </label>
-            <input id="input-image" type="file" asp-for="Avatar" style="visibility:hidden;">
-        </div>
-        <input asp-for="CroppedAvatarBase64String" id="input-cropped-avatar" type="text" hidden />
-        <div class="form-group">
-            <div class="cropped-container">
-                <img class="cropped" id="img-cropped" src="@imgSrc" />
+        <form asp-action="Edit" asp-controller="Account" asp-antiforgery="true" enctype="multipart/form-data">
+            <div class="validation" asp-validation-summary="ModelOnly">  </div>
+            <div>
+                <div class="form-group form-line">
+                    <label class="register-label" asp-for="Email"> Введите email </label>
+                    <input class="register-input" type="text" asp-for="Email">
+                    <span asp-validation-for="Email" />
+                </div>
+                <div class="form-group form-line">
+                    <label class="register-label" asp-for="Name"> Введите имя </label>
+                    <input class="register-input" type="text" asp-for="Name">
+                    <span asp-validation-for="Name" />
+                </div>
+                <div class="form-group form-line">
+                    <label class="register-label" for="input-image" asp-for="Avatar">Загрузить аватар &#128247; </label>
+                    <input class="register-input" id="input-image" type="file" asp-for="Avatar" style="visibility:hidden;">
+                </div>
+                <input asp-for="CroppedAvatarBase64String" id="input-cropped-avatar" type="text" hidden />
+                <div class="form-group">
+                    <div class="cropped-container">
+                        <img class="cropped" id="img-cropped" src="@imgSrc" />
+                    </div>
+                </div>
+                <div class="form-group">
+
+                    <input type="submit" value="Сохранить" class="btn btn-outline-dark btn-save-profile" />
+
+                </div>
             </div>
+
+        </form>
+
+
+
+
+        <div id="modal-crop" class="hidden">
+            <div id="modal-img-container" class="img-container">
+                <img id="img-id" class="avatar-img-visible" src="" />
+            </div>
+            <button id="btn-crop">Выбрать</button>
         </div>
-        <div class="form-group">
 
-            <input type="submit" value="Сохранить" class="btn btn-outline-dark" />
-
+        <div id="all-images">
         </div>
     </div>
-
-</form>
-
-
-
-
-<div id="modal-crop" class="hidden">
-    <div id="modal-img-container" class="img-container">
-        <img id="img-id" class="avatar-img-visible" src="" />
-    </div>
-    <button id="btn-crop">Выбрать</button>
 </div>
 
-<div id="all-images">
-</div>
+
 
 <script type="module" src="~/js/register.js"></script>

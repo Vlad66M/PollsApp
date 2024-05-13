@@ -278,8 +278,8 @@ input[type=radio] {
 .autocomplete {
     position: absolute;
     z-index: 100;
-    background-color: #e1d5d5;
-    width: 200px;
+    background-color: white;
+    width: 198px;
     word-wrap: break-word;
 }
 
@@ -542,4 +542,61 @@ audio::-webkit-media-controls-panel {
 .comment-text {
     max-width: 450px;
     word-wrap: break-word;
+}
+
+.login-container-global{
+    width: 90vw;
+    height: 90vh;
+    box-sizing: border-box;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+}
+
+.email-input{
+    margin-left: 16px;
+}
+
+.form-line{
+    margin: 6px 3px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.btn-login{
+    width: 265px;
+}
+
+.register-container{
+    display: flex;
+    flex-direction: column;
+    /*justify-content: space-between;
+    justify-items: center;
+    align-content:space-between;*/
+    /*align-items: center;*/
+}
+
+.register-label{
+    width: 200px;
+}
+
+.register-title{
+    margin-left: 0px;
+}
+
+.register-input{
+    width: 300px;
+}
+
+.btn-save-profile{
+    margin-top: 6px;
 }
