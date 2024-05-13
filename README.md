@@ -14,14 +14,14 @@
 
 Другие таблицы:
 
-comments
+comments: 
 id	poll_id	user_id	text
 
-poll_options
+poll_options: 
 id	poll_id audio	photo	text
 
-polls
+polls: 
 id	title	start_date	end_date	is_active	allow_comments
 
-votes
+votes: 
 id	poll_option_id	user_id	is_anon
