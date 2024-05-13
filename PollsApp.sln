@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PollsApp.Identity", "PollsA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PollsApp.Api", "PollsApp.Api\PollsApp.Api.csproj", "{BFDE0DDB-5AE9-44A4-8BD9-EAA7CEDA7838}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PollsApp.Mvc", "PollsApp.Mvc\PollsApp.Mvc.csproj", "{630B3989-4C8A-4881-896F-6B5BE0B25FD6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PollsApp.Mvc", "PollsApp.Mvc\PollsApp.Mvc.csproj", "{630B3989-4C8A-4881-896F-6B5BE0B25FD6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
