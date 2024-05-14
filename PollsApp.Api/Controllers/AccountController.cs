@@ -17,10 +17,8 @@ namespace PollsApp.Api.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<AuthResponse>> Login(AuthRequest request)
+        public async Task<ActionResult> Login(AuthRequest request)
         {
-            Console.WriteLine("Register");
-            //var authServise = new AuthService();
             AuthResponse result;
             try
             {
@@ -37,10 +35,8 @@ namespace PollsApp.Api.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult<RegistrationResponse>> Register(RegistrationRequest request)
+        public async Task<ActionResult> Register(RegistrationRequest request)
         {
-            Console.WriteLine("Register");
-            //var authServise = new AuthService();
             var result = await _authenticationService.Register(request);
             return Ok(result);
         }

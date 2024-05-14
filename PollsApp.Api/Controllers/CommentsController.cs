@@ -28,7 +28,7 @@ namespace PollsApp.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Comment>> PostComment(PostCommentModel model)
+        public async Task<IActionResult> PostComment(PostCommentModel model)
         {
             Console.WriteLine("PostComment");
 

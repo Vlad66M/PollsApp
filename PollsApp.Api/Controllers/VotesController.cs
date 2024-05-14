@@ -23,7 +23,7 @@ namespace PollsApp.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Vote>> PostVote(PostVoteModel model)
+        public async Task<IActionResult> PostVote(PostVoteModel model)
         {
             Console.WriteLine("PostVote");
             Vote vote = new Vote() { UserId = model.UserId, PollOptionId = model.OptionId, IsAnon = model.IsAnon };

@@ -34,7 +34,7 @@ namespace PollsApp.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetPolls(string? userId, string? search, bool? active, bool? notvoted, int? page)
+        public async Task<IActionResult> GetPolls(string? userId, string? search, bool? active, bool? notvoted, int? page)
         {
             Console.WriteLine("GetPolls");
             int pageNumber = page ?? 1;
@@ -57,10 +57,10 @@ namespace PollsApp.Api.Controllers
             try
             {
                 res = JsonConvert.SerializeObject(pagedListModel, Formatting.Indented,
-new JsonSerializerSettings
-{
-    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-});
+                    new JsonSerializerSettings
+                    {
+                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                    });
             }
             catch (Exception ex)
             {
@@ -81,7 +81,7 @@ new JsonSerializerSettings
         }
 
         [HttpPost]
-        public async Task<ActionResult<Poll>> PostPoll(PostPollModel model)
+        public async Task<IActionResult> PostPoll(PostPollModel model)
         {
             Console.WriteLine("PostPoll");
 

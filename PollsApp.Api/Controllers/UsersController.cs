@@ -26,7 +26,7 @@ namespace PollsApp.Api.Controllers
         
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<User>>> GetUser(string id)
+        public async Task<IActionResult> GetUser(string id)
         {
             var user = usersRepository.GetUserById(id);
             if (user != null)
@@ -42,7 +42,7 @@ namespace PollsApp.Api.Controllers
 
         [HttpPut]
         [Authorize]
-        public async Task<ActionResult<User>> PutUser(EditUserModel model)
+        public async Task<IActionResult> PutUser(EditUserModel model)
         {
             Console.WriteLine("PutUser");
            
