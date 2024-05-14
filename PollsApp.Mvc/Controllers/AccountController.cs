@@ -37,10 +37,6 @@ namespace PollsApp.Mvc.Controllers
         {
             if (ModelState.IsValid)
             {
-                /*User user = new User();
-                user.Email = model.Email;
-                user.Name = model.Name;*/
-                //user.Password = model.Password;
                 if (model.CroppedAvatarBase64String != null)
                 {
                     try
@@ -50,14 +46,6 @@ namespace PollsApp.Mvc.Controllers
                     }
                     catch { }
                 }
-                /*user.Role = new Role() { Name = "user" };
-                user.Votes = null;*/
-
-                /*PostUserModel postModel = new();
-                postModel.Name = user.Name;
-                postModel.Email = user.Email;
-                //postModel.Password = user.Password;
-                postModel.Avatar = user.Avatar;*/
 
                 RegistrationRequest register = new()
                 {
@@ -172,21 +160,6 @@ namespace PollsApp.Mvc.Controllers
             ModelState.AddModelError("", "Неверно заполнены поля");
             return View(model);
         }
-
-        /*public async Task Authenticate(User user)
-        {
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email),
-                new Claim("UserId", user.Id.ToString()),
-                new Claim("UserName", user.Name),
-                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role.Name)
-            };
-
-            ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
-        }*/
 
         public async Task<IActionResult> Logout()
         {

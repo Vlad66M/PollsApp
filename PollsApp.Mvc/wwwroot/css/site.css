@@ -68,7 +68,7 @@ body {
 }
 
 .comment-avatar-img {
-    height: 20px;
+    height: 40px;
     border-radius: 50%;
 }
 
@@ -185,19 +185,19 @@ input[type=radio] {
 .green-line {
     height: 20px;
     background-color: green;
-    margin: 2px;
+    margin: 2px 0 2px 2px;
     padding: 0;
 }
 
 .white-line {
     height: 20px;
     background-color: #c4bfbf;
-    margin: 2px;
+    margin: 2px 6px 2px 0;
     padding: 0;
 }
 
 .votes-number{
-    margin-top: 12px;
+    margin: 3px 3px 3px 6px;
     padding: 0;
     font-size: 20px;
     font-weight: bold;
