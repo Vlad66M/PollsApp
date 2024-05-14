@@ -99,21 +99,6 @@ namespace PollsApp.Mvc.Controllers
         }
 
         [Authorize(Roles = "admin, user")]
-        [HttpGet("/polls/getpolls")]
-        public async Task<IActionResult> getPollsJson(string search, bool active, bool notvoted, int page = 1)
-        {
-            Console.WriteLine("getPollsJson: " + notvoted);
-
-            string userIdString = HttpContext.User.FindFirst("UserId").Value.ToString();
-
-            var polls = await webApiClient.GetPollsAsync(userIdString, search, active, notvoted, page);
-            PollsViewModel model = new();
-            model.PagedListModel = polls;
-
-            return PartialView("_PollsList", model);
-        }
-
-        [Authorize(Roles = "admin, user")]
         [HttpGet("/polls/getpollstitles")]
         public async Task<IActionResult> getPollsTitlesJson(string search, bool active, bool notvoted, int page = 1)
         {
@@ -125,24 +110,6 @@ namespace PollsApp.Mvc.Controllers
 
             return new JsonResult(polls.polls.Select(p => p.Title));
         }
-
-
-        [Authorize(Roles = "admin, user")]
-        [HttpGet("/polls_list")]
-        public async Task<IActionResult> GetPollsList(string? search, bool? active, bool? notvoted, int? page)
-        {
-            Console.WriteLine("GetPollsList");
-            string userIdString = HttpContext.User.FindFirst("UserId").Value.ToString();
-
-            var polls = await webApiClient.GetPollsAsync(userIdString, search, active, notvoted, page);
-            PollsViewModel model = new();
-            model.PagedListModel = polls;
-
-            return PartialView(model);
-        }
-
-
-
 
     }
 }

@@ -39,12 +39,10 @@ namespace PollsApp.Persistence.Repositories
             using (DbContextSqlite db = new DbContextSqlite())
             {
                 Poll poll = db.Polls.Where(p => p.Id == pollId).Include(p => p.PollOptions).Include(p => p.Comments).ThenInclude(c => c.User).FirstOrDefault();
-                //Poll poll = db.Polls.Where(p => p.Id == pollId).Include(p => p.PollOptions).FirstOrDefault();
                 if (poll != null)
                 {
                     pollInfo = new Application.DTOs.PollDetails();
                     User user = db.Users.Where(u => u.Id == userId).Include(u => u.Role).FirstOrDefault();
-                    //User user = userService.GetUserById(userId).Result;
 
                     pollInfo.Poll = poll;
                     foreach (PollOption pollOption in poll.PollOptions)
@@ -114,11 +112,11 @@ namespace PollsApp.Persistence.Repositories
                 {
                     if (isLong)
                     {
-                        polls = polls.Where(p => p.Id == pollId || p.Title.Contains(search));
+                        polls = polls.Where(p => p.Id == pollId || p.Title.ToUpper().Contains(search.ToUpper()));
                     }
                     else
                     {
-                        polls = polls.Where(p => p.Title.Contains(search));
+                        polls = polls.Where(p => p.Title.ToUpper().Contains(search.ToUpper()));
                     }
                 }
                 if (active == true)

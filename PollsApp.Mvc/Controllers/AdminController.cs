@@ -129,7 +129,6 @@ namespace PollsApp.Mvc.Controllers
                 model.Title = pollInfo.Poll.Title;
                 model.IsActive = pollInfo.Poll.IsActive;
                 model.AllowComments = pollInfo.Poll.AllowComments;
-                //model.Created = pollInfo.Poll.StartDate;
                 model.EndDate = pollInfo.Poll.EndDate;
                 if (pollInfo.Poll.EndDate != null)
                 {
@@ -279,24 +278,6 @@ namespace PollsApp.Mvc.Controllers
 
             var currentPage = Request.Headers.Referer.ToString();
             return Redirect(currentPage);
-        }
-
-
-
-        [Authorize(Roles = "admin")]
-        [HttpGet("/admin/getpolls")]
-        public async Task<IActionResult> getPollsJson(string search, bool active, bool notvoted, int page = 1)
-        {
-            Console.WriteLine("adminGetPollsJson: " + notvoted);
-
-            string userIdString = HttpContext.User.FindFirst("UserId").Value.ToString();
-
-
-            var polls = await webApiClient.GetPollsAsync(userIdString, search, active, notvoted, page);
-            PollsViewModel model = new();
-            model.PagedListModel = polls;
-
-            return PartialView("_PollsListTable", model);
         }
 
         private bool HasEmptyOption(List<PostPollOption> options)

@@ -33,7 +33,7 @@ connection.on("ReceiveComment", function (comment) {
 
     let userName = document.createElement("p");
     userName.className = "comment-user-name";
-    userName.innerHTML = comment.userName + ": ";
+    userName.innerHTML = comment.userName + ":";
 
     let text = document.createElement("p");
     text.textContent = comment.text;
@@ -70,12 +70,6 @@ document.getElementById("comments-textarea").addEventListener("keydown", functio
     connection.invoke("SendComment", pollId, text).catch(function (err) {
         return console.error(err.toString());
     });
-
-    /*let comment = document.createElement("div");
-    let commentText = document.createElement("p");
-    commentText.textContent = text;
-    comment.appendChild(commentText);
-    document.getElementById("comments-list").appendChild(comment);*/
 
     event.preventDefault();
 

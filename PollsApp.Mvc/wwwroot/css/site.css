@@ -502,18 +502,22 @@ audio::-webkit-media-controls-panel {
 }
 
 .comments-list{
-    width: 560px;
+    width: 605px;
     max-height: 200px;
     background-color: whitesmoke;
 
     overflow: scroll;
 
     word-wrap: break-word;
+
+    overflow-x: hidden;
 }
 
 .comments-textarea{
-    width: 530px;
+    width: 605px;
     height: 50px;
+
+    resize: none;
 }
 
 .comments-input{
@@ -526,6 +530,7 @@ audio::-webkit-media-controls-panel {
     flex-direction: row;
     width: 500px;
     word-wrap: break-word;
+    margin: 3px 2px;
 }
 
 .comment-user-name{
