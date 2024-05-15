@@ -6,7 +6,7 @@
 <form method="get" id="search-form" class="search-form">
     <div class="search-form-item">
         <label for="search">Поиск</label>
-        <input type="text" name="search" id="search" autocomplete="off" @(!String.IsNullOrEmpty(Model.SearchInfo.Search) ? "value=" + Model.SearchInfo.Search : "") />
+        <input type="text" name="search" id="search" asp-for="SearchInfo.Search" autocomplete="off"  />
         <div id="autocomplete" class="autocomplete"></div>
     </div>
     <div class="search-form-item">

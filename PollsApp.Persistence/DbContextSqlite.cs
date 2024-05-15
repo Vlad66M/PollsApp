@@ -8,12 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PollsApp.Persistence.Repositories
+namespace PollsApp.Persistence
 {
     public class DbContextSqlite : IdentityDbContext<User>
     {
         public DbSet<Role> URoles { get; set; } = null!;
-        //public DbSet<User> Users { get; set; } = null!;
         public DbSet<Poll> Polls { get; set; } = null!;
         public DbSet<PollOption> PollOptions { get; set; } = null!;
         public DbSet<Vote> Votes { get; set; } = null!;

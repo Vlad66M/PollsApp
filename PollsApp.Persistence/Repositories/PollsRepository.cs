@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace PollsApp.Persistence.Repositories
@@ -94,30 +95,13 @@ namespace PollsApp.Persistence.Repositories
 
         public PagedList<Poll> GetPolls(string? userId, string? search, bool? active, bool? notvoted, int page = 1)
         {
-            long pollId = 0;
-            bool isLong = false;
-            try
-            {
-                pollId = long.Parse(search);
-                isLong = true;
-            }
-            catch
-            {
-
-            }
             using (DbContextSqlite db = new DbContextSqlite())
             {
-                var polls = db.Polls.Include(p => p.PollOptions).AsQueryable();
+                var polls = db.Polls.Include(p => p.PollOptions).OrderByDescending(p => p.Id).AsQueryable();
                 if (!String.IsNullOrEmpty(search))
                 {
-                    if (isLong)
-                    {
-                        polls = polls.Where(p => p.Id == pollId || p.Title.ToUpper().Contains(search.ToUpper()));
-                    }
-                    else
-                    {
-                        polls = polls.Where(p => p.Title.ToUpper().Contains(search.ToUpper()));
-                    }
+                    //polls = polls.Where(p => p.Title.ToLower().Contains(search.ToLower()));
+                    polls = polls.Where(p => EF.Functions.Like(p.Title, "%" + search + "%"));
                 }
                 if (active == true)
                 {

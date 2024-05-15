@@ -17,7 +17,7 @@
         </div>
         
         <div id="datepicker-container" class="form-group-create-poll">
-            <label for="HasEndDate">Добавить дату зварешнеия</label>
+            <label for="HasEndDate">Добавить дату завершения</label>
             <input id="ckbx-has-end-date" type="checkbox" name="HasEndDate" value="false" />
             <br />
             <input asp-for="EndDate" name="EndDate" id="datepicker" class="datepicker-hidden" value="@DateTime.Now.ToString("yyyy-MM-ddThh:mm")" />
@@ -49,5 +49,3 @@
 
 <script src="~/js/create_poll.js"></script>
 
-<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

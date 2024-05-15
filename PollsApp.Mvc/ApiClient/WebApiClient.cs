@@ -72,6 +72,10 @@ namespace PollsApp.Mvc.ApiClient
 
         public async Task<PagedListModel> GetPollsAsync(string? userId, string? search, bool? active, bool? notvoted, int? page)
         {
+            /*if (!String.IsNullOrEmpty(search))
+            {
+                search = search.Replace()
+            }*/
             PagedListModel polls = new PagedListModel();
             List<Poll> polls1 = new List<Poll>();
             bool res = false;
@@ -80,7 +84,7 @@ namespace PollsApp.Mvc.ApiClient
             if (response.IsSuccessStatusCode)
             {
                 var resStr = await response.Content.ReadAsStringAsync();
-                polls = await Task.Run(() => JsonConvert.DeserializeObject<PagedListModel>(resStr));
+                polls = await Task.Run(() =>  JsonConvert.DeserializeObject<PagedListModel>(resStr));
             }
             return polls;
         }

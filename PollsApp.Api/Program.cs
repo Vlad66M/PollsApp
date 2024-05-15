@@ -9,6 +9,7 @@ using PollsApp.Application.Mapper;
 using PollsApp.Application.Persistence;
 using PollsApp.Domain;
 using PollsApp.Identity;
+using PollsApp.Persistence;
 using PollsApp.Persistence.Repositories;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -20,8 +21,6 @@ namespace PollsApp.Api
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
-            // Add services to the container.
 
             builder.Services.AddHttpContextAccessor();
 
@@ -83,7 +82,6 @@ namespace PollsApp.Api
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
