@@ -9,19 +9,3 @@
 Для аутентификации пользователей используется библиотека Identity. 
 Рассылка комментариев реализуется с помощью SignalR.
 
-Структура БД:
-Стандартные таблицы библиотеки Identity (в таблице AspNetUsers добавлены дополнительные атрибуты пользователей - Avatar, Name) 
-
-Другие таблицы:
-
-comments: 
-id	poll_id	user_id	text
-
-poll_options: 
-id	poll_id audio	photo	text
-
-polls: 
-id	title	start_date	end_date	is_active	allow_comments
-
-votes: 
-id	poll_option_id	user_id	is_anon
