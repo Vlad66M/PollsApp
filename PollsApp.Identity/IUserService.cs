@@ -3,12 +3,12 @@ using PollsApp.Domain;
 
 namespace PollsApp.Identity
 {
-    public interface IUserService
+    /*public interface IUserService
     {
         Task<UserInfo> GetUserInfoById(string userId);
 
         Task<User> GetUserById(string userId);
 
         Task<List<UserInfo>> GetAllUsers();
-    }
+    }*/
 }

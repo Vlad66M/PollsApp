@@ -44,7 +44,7 @@ namespace PollsApp.Api
             });
 
             builder.Services.AddTransient<IAuthService, AuthService>();
-            builder.Services.AddTransient<IUserService, UserService>();
+            /*builder.Services.AddTransient<IUserService, UserService>();*/
             builder.Services.AddTransient<IPollsRepository, PollsRepository>();
             builder.Services.AddTransient<IUsersRepository, UsersRepository>();
 
@@ -79,6 +79,11 @@ namespace PollsApp.Api
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.WebHost.UseKestrel(options =>
+            {
+                options.Limits.MaxRequestBodySize = 2L * 1024 * 1024 * 1024; // 2 GB
+            });
 
             var app = builder.Build();
 

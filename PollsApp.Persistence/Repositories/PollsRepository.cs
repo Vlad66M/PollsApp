@@ -15,11 +15,9 @@ namespace PollsApp.Persistence.Repositories
 {
     public class PollsRepository : IPollsRepository
     {
-        private readonly IUserService userService;
 
-        public PollsRepository(IUserService userService)
+        public PollsRepository()
         {
-            this.userService = userService;
         }
         public void DeletePoll(long pollId)
         {

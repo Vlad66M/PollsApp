@@ -35,20 +35,6 @@ namespace PollsApp.Mvc
                 options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
             });
 
-            /*builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));*/
-
-            /*builder.Services.AddDbContext<DbContextSqlite>(options =>
-                options.UseSqlite(builder.Configuration.GetConnectionString("DbConnectionString"),
-                b => b.MigrationsAssembly(typeof(DbContextSqlite).Assembly.FullName)));
-
-            builder.Services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<DbContextSqlite>().AddDefaultTokenProviders();
-
-            builder.Services.AddTransient<IAuthService, AuthService>();
-            builder.Services.AddTransient<IUserService, UserService>();
-            builder.Services.AddTransient<IPollsRepository, PollsRepository>();
-            builder.Services.AddTransient<IUsersRepository, UsersRepository>();*/
-
 
 
             builder.Services.AddTransient<PollsApp.Mvc.Authentication.IAuthenticationService, PollsApp.Mvc.Authentication.AuthenticationService>();
@@ -72,6 +58,11 @@ namespace PollsApp.Mvc
             {
                 x.ValueLengthLimit = int.MaxValue;
                 x.MultipartBodyLengthLimit = int.MaxValue; // In case of multipart
+            });
+
+            builder.WebHost.UseKestrel(options =>
+            {
+                options.Limits.MaxRequestBodySize = 2L * 1024 * 1024 * 1024; // 2 GB
             });
 
             var app = builder.Build();

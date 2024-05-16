@@ -19,17 +19,10 @@ namespace PollsApp.Api.Controllers
     {
         private readonly IMapper mapper;
         private IPollsRepository pollsRepository { get; }
-        private IUsersRepository usersRepository { get; }
-        private IUserService userService { get; }
 
-        public PollsController(IPollsRepository pollsRepository, 
-                               IUsersRepository usersRepository, 
-                               IUserService userService,
-                               IMapper mapper)
+        public PollsController(IPollsRepository pollsRepository, IMapper mapper)
         {
             this.pollsRepository = pollsRepository;
-            this.usersRepository = usersRepository;
-            this.userService = userService;
             this.mapper = mapper;
         }
 

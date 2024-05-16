@@ -18,7 +18,8 @@ namespace PollsApp.Persistence.Repositories
         {
             using (DbContextSqlite db = new DbContextSqlite())
             {
-                var user = db.Users.Where(u => u.Id == id).Include(u => u.Role).Include(u => u.Votes).FirstOrDefault();
+                //var user = db.Users.Where(u => u.Id == id).Include(u => u.Role).Include(u => u.Votes).FirstOrDefault();
+                var user = db.Users.Where(u => u.Id == id).Include(u => u.Votes).FirstOrDefault();
                 
                 return user;
             }

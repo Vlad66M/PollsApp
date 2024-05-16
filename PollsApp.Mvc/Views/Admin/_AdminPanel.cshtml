@@ -14,10 +14,7 @@
 <div class="user-panel">
     <div class="user-panel-col1">
         <a href="~/polls">На главную</a>
-        @if(Model.User.Role.Name == "admin")
-        {
-            <a href="~/admin/create">Создать новый</a>
-        }
+        <a href="~/admin/create">Создать новый</a>
     </div>
     <div class="user-panel-col2">
         <img src="@imgSrc" class="avatar-img" title="@Model.User.Name" />

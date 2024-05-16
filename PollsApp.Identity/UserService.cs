@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace PollsApp.Identity
 {
-    public class UserService : IUserService
+    /*public class UserService : IUserService
     {
         private readonly UserManager<User> _userManager;
 
@@ -62,5 +62,5 @@ namespace PollsApp.Identity
             };
         }
 
-    }
+    }*/
 }
