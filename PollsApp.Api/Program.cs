@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using PollsApp.Api.Migrations;
 using PollsApp.Application.Mapper;
 using PollsApp.Application.Persistence;
 using PollsApp.Domain;

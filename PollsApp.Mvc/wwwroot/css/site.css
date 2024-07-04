@@ -390,26 +390,32 @@ audio::-webkit-media-controls-panel {
     left: 40%;
     display: flex;
     z-index: 100;
-    background-color: white;
 }
+
+/*#opened-photo {
+    max-height: auto;
+    max-width: auto;
+}*/
 
 .hide-opened-photo {
     z-index: 1000;
-    width: 20px;
-    height: 20px;
+    padding-left: 6px;
+    width: 30px;
+    height: 30px;
     font-size: 20px;
     position: relative;
     top: 0px;
     right: 35px;
     cursor: pointer;
     user-select: none;
+
+    background-color: white;
 }
 
 .polls-container {
     width: 660px;
     text-overflow: ellipsis;
-    overflow:hidden;
-
+    overflow: hidden;
     display: flex;
     flex-direction: column;
 }

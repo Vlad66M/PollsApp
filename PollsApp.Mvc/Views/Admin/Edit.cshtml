@@ -18,7 +18,7 @@
         </div>
 
         <div id="datepicker-container" class="form-group-create-poll">
-            <label for="HasEndDate">Добавить дату зварешнеия</label>
+            <label for="HasEndDate">Добавить дату завершения</label>
             <input id="ckbx-has-end-date" type="checkbox" name="HasEndDate" value="true" @(Model.HasEndDate ? "checked" : "") />
             <br />
             <input asp-for="EndDate" name="EndDate" id="datepicker" class="@(Model.HasEndDate ? "datepicker-visible" : "datepicker-hidden")" value="@Model.EndDate?.ToString("yyyy-MM-ddThh:mm")" />
